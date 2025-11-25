@@ -13,7 +13,8 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/your-username/LiteMobCXHSDK'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Your Name' => 'your.email@example.com' }
-  s.source           = { :git => 'https://github.com/your-username/LiteMobCXHSDK.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
+
 
   s.ios.deployment_target = '13.0'
   s.requires_arc = true
