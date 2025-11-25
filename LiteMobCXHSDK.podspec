@@ -26,11 +26,10 @@ Pod::Spec.new do |s|
     # - pod 'LiteMobCXHSDK-Universal' # Universal版本（与此相同）
     s.vendored_frameworks = 'LiteMobCXHSDK/universal/LiteMobCXHSDK.framework'
     
-    # Framework 头文件路径
-    s.public_header_files = 'LiteMobCXHSDK/universal/LiteMobCXHSDK.framework/Headers/*.h'
-    
-    # 如果 Framework 的头文件在 Headers 目录下
-    # s.source_files = 'LiteMobCXHSDK/LiteMobCXHSDK.framework/Headers/*.h'
+    # 注意：使用 vendored_frameworks 时，Framework 的头文件会自动暴露，不需要指定 public_header_files
+    # 如果必须指定，需要同时添加 source_files：
+    # s.source_files = 'LiteMobCXHSDK/universal/LiteMobCXHSDK.framework/Headers/*.h'
+    # s.public_header_files = 'LiteMobCXHSDK/universal/LiteMobCXHSDK.framework/Headers/*.h'
     
     # 资源文件（如果 Framework 中包含资源）
     # 方式一：如果资源在 Framework 内部，通常不需要单独配置

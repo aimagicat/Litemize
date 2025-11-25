@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
                        DESC
 
   # TODO: 发布前需要修改以下信息
-  s.homepage         = 'https://github.com/your-username/LiteMobCXHSDK'
+  s.homepage         = 'https://github.com/aimagicat/Litemize'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Your Name' => 'your.email@example.com' }
   s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   # 真机版本 Framework
   s.vendored_frameworks = 'LiteMobCXHSDK/device/LiteMobCXHSDK.framework'
-  s.public_header_files = 'LiteMobCXHSDK/device/LiteMobCXHSDK.framework/Headers/*.h'
+  # 注意：使用 vendored_frameworks 时，Framework 的头文件会自动暴露，不需要指定 public_header_files
 
   # 依赖的系统框架
   s.frameworks = [
