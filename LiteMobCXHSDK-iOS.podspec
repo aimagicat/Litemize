@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LiteMobCXHSDK-iOS'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'LiteMobCXHSDK - 轻量级移动广告SDK（真机版本）'
   s.description      = <<-DESC
   LiteMobCXHSDK 是一个轻量级的iOS广告SDK，支持横幅广告、插屏广告、原生广告、激励视频、开屏广告等多种广告形式。
