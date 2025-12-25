@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LMBUMAdapter'
-  s.version          = '1.0.0'
+  s.version          = '5.0'
   s.summary          = 'LMBUMAdapter - LitemizeSDK 的穿山甲（BUM）适配器'
   s.description      = <<-DESC
   LMBUMAdapter 是 LitemizeSDK 的第三方广告平台适配器，用于将 LitemizeSDK 接入到穿山甲（BUM）SDK。
