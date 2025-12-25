@@ -17,20 +17,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.vendored_frameworks = 'LitemizeSDK.framework'
-  # # 改成源代码
-  # s.source_files = 'LitemizeSDK/**/*.{h,m}'
-  # s.public_header_files = 'LitemizeSDK/**/*.h'
 
-  # s.resource = 'LitemizeSDK/PrivacyInfo.xcprivacy'
-  # s.resource_bundles = {
-  #   'LitemizeSDK' => ['LitemizeSDK/**/*.xcassets']
-  # }
-
-  # # 配置常量宏
-  # s.prefix_header_contents = <<-EOS
-  # #define LITE_MOB_CXH_SDK_ENABLE_DEBUG_PANEL 0
-  # #define LITE_MOB_CXH_SDK_ENABLE_YAOYIYAO 1
-  # EOS
 
   # 依赖的系统框架（必需）
   s.frameworks = [
