@@ -50,6 +50,10 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
   }
+  
+  # 注意：Ads-CN-Beta 包含静态链接的二进制文件
+  # 提交到 CocoaPods Trunk 时需要使用 --use-libraries 标志
+  # 使用者的 Podfile 中建议使用：use_frameworks! :linkage => :dynamic
 
 end
 
