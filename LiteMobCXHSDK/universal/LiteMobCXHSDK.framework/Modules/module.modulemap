@@ -1,6 +1,0 @@
-framework module LiteMobCXHSDK {
-  umbrella header "LiteMobCXHSDK.h"
-  export *
-
-  module * { export * }
-}
