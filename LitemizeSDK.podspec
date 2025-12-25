@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '12.0'
   s.requires_arc = true
 
-  s.vendored_frameworks = 'LitemizeSDK/LitemizeSDK.framework'
+  s.vendored_frameworks = 'LitemizeSDK.framework'
   # # 改成源代码
   # s.source_files = 'LitemizeSDK/**/*.{h,m}'
   # s.public_header_files = 'LitemizeSDK/**/*.h'
