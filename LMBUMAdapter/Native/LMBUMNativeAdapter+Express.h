@@ -62,6 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param nativeExpressAd 广告实例
 - (void)express_handleAdDidClose:(LMNativeExpressAd *)nativeExpressAd;
 
+/// 打印全局映射表信息（用于排查内存泄漏）
+/// 在需要排查内存泄漏时调用此方法，查看全局映射表中的引用情况
++ (void)express_printMapTableInfo;
+
+/// 清理全局映射表中与此 adapter 相关的所有视图
+/// 在 adapter dealloc 时调用，确保完全清理所有引用
+- (void)express_cleanupGlobalMapTable;
+
 @end
 
 NS_ASSUME_NONNULL_END

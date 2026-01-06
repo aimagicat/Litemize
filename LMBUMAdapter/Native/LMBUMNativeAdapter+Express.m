@@ -9,6 +9,18 @@
 #import <BUAdSDK/BUAdSDK.h>
 #import <LitemizeSDK/LMAdSlot.h>
 #import <LitemizeSDK/LMNativeExpressAd.h>
+#import <objc/message.h>
+#import <objc/runtime.h>
+
+/// 关联对象 key，用于存储视图对应的 adapter 和 expressAd
+static const void *kExpressAdKey = &kExpressAdKey;
+static const void *kAdapterKey = &kAdapterKey;
+
+/// 全局映射表：视图 -> expressAd 的映射
+/// 使用弱引用 key（UIView），强引用 value（LMNativeExpressAd），视图释放时自动清理
+static NSMapTable<UIView *, LMNativeExpressAd *> *gViewToExpressAdMap = nil;
+/// 全局映射表的同步队列，用于保证线程安全
+static dispatch_queue_t gMapTableQueue = nil;
 
 /// 分类需要访问主类的私有属性和方法，在此重新声明
 @interface LMBUMNativeAdapter ()
@@ -30,6 +42,108 @@
 @end
 
 @implementation LMBUMNativeAdapter (Express)
+
+#pragma mark - 内存泄漏排查工具
+
+/// 打印全局映射表信息（用于排查内存泄漏）
++ (void)express_printMapTableInfo {
+    NSLog(@"📊 全局映射表信息:");
+
+    // ⚠️ 重要：使用同步队列保护全局映射表的访问
+    if (!gMapTableQueue) {
+        NSLog(@"   - gMapTableQueue: nil");
+        return;
+    }
+
+    __block NSUInteger mapCount = 0;
+    __block NSMutableArray *viewInfos = [NSMutableArray array];
+
+    dispatch_sync(gMapTableQueue, ^{
+        if (!gViewToExpressAdMap) {
+            NSLog(@"   - gViewToExpressAdMap: nil");
+            return;
+        }
+
+        mapCount = gViewToExpressAdMap.count;
+        if (mapCount > 0) {
+            for (UIView *view in gViewToExpressAdMap) {
+                LMNativeExpressAd *expressAd = [gViewToExpressAdMap objectForKey:view];
+                [viewInfos addObject:@{@"view" : view, @"expressAd" : expressAd ?: [NSNull null]}];
+            }
+        }
+    });
+
+    NSLog(@"   - gViewToExpressAdMap count: %lu", (unsigned long)mapCount);
+    if (viewInfos.count > 0) {
+        NSLog(@"   - 映射的视图列表:");
+        for (NSDictionary *viewInfo in viewInfos) {
+            UIView *view = viewInfo[@"view"];
+            LMNativeExpressAd *expressAd = viewInfo[@"expressAd"];
+            if ([expressAd isEqual:[NSNull null]]) {
+                expressAd = nil;
+            }
+            NSLog(@"     view: %p, expressAd: %@", view, expressAd);
+        }
+    }
+}
+
+#pragma mark - Method Swizzling
+
+/// 初始化全局映射表和 Hook
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // 创建全局映射表：弱引用 key（UIView），强引用 value（LMNativeExpressAd）
+        // 视图释放时自动清理，无需手动管理
+        gViewToExpressAdMap = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableStrongMemory];
+        // 创建串行队列用于保护全局映射表的访问（线程安全）
+        gMapTableQueue = dispatch_queue_create("com.litemize.bum.nativeadapter.maptable", DISPATCH_QUEUE_SERIAL);
+
+        // Hook UIView 的 removeFromSuperview 方法
+        Class class = [UIView class];
+        SEL originalSelector = @selector(removeFromSuperview);
+
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        if (!originalMethod) {
+            NSLog(@"⚠️ LMBUMNativeAdapter[Express] 无法找到 removeFromSuperview 方法，Hook 失败");
+            return;
+        }
+
+        // 保存原始实现
+        IMP originalIMP = method_getImplementation(originalMethod);
+
+        // 使用 block 实现 hook 逻辑
+        IMP swizzledIMP = imp_implementationWithBlock(^(UIView *self) {
+            // ⚠️ 重要：使用同步队列保护全局映射表的访问，避免多线程竞争导致 EXC_BAD_ACCESS
+            __block LMNativeExpressAd *expressAd = nil;
+
+            if (gMapTableQueue && gViewToExpressAdMap) {
+                dispatch_sync(gMapTableQueue, ^{
+                    // 检查是否是我们要监听的视图
+                    expressAd = [gViewToExpressAdMap objectForKey:self];
+                    if (expressAd) {
+                        NSLog(@"LMBUMNativeAdapter[Express] 检测到视图从父视图移除，view: %@, expressAd: %@", self, expressAd);
+                        // 从映射表中移除（视图释放时会自动清理，这里提前清理避免重复调用）
+                        [gViewToExpressAdMap removeObjectForKey:self];
+                    }
+                });
+            }
+
+            // 在同步队列外调用 close，避免死锁
+            if (expressAd) {
+                [expressAd close];
+            }
+
+            // 调用原始实现
+            ((void (*)(id, SEL))originalIMP)(self, originalSelector);
+        });
+
+        // 替换方法实现
+        method_setImplementation(originalMethod, swizzledIMP);
+
+        NSLog(@"✅ LMBUMNativeAdapter[Express] Hook removeFromSuperview 成功");
+    });
+}
 
 #pragma mark - 模板广告加载
 
@@ -120,8 +234,6 @@
 #pragma mark - 模板广告渲染处理
 
 - (void)express_handleRenderForView:(UIView *)expressAdView {
-    NSLog(@"LMBUMNativeAdapter[Express] 处理模板广告渲染，expressAdView: %@", expressAdView);
-
     // BUM SDK 调用 renderForExpressAdView 时，传入的是 expressView
     // 我们需要通过 expressView 找到对应的 LMNativeExpressAd 实例，然后触发渲染
     LMNativeExpressAd *expressAd = [self.expressViewToAdMap objectForKey:expressAdView];
@@ -139,8 +251,8 @@
         [expressAd showInView:containerView];
         // 回调渲染成功
         [self express_handleRenderSuccess:expressAd];
-        NSLog(@"LMBUMNativeAdapter[Express] 调用 showInView 触发渲染，expressView: %@, container: %@", expressAdView,
-              containerView);
+        // 注册视图到全局映射表，用于监听 removeFromSuperview
+        [self _registerViewForRemoveObserver:expressAdView expressAd:expressAd];
     } else {
         NSLog(@"⚠️ LMBUMNativeAdapter[Express] 无法找到 expressAdView 对应的 expressAd");
     }
@@ -242,12 +354,13 @@
     // 通知融合 SDK 广告曝光
     if (self.bridge && [self.bridge respondsToSelector:@selector(nativeAd:didVisibleWithMediatedNativeAd:)]) {
         // express广告请传递上报GroMore的UIView
+        // ⚠️ 重要：先保存 expressView，避免后续访问时对象已被释放
         UIView *expressView = nativeExpressAd.expressView;
-        if (!expressView) {
-            expressView = nativeExpressAd.expressView.superview;
-        }
-        if (expressView) {
-            [self.bridge nativeAd:self didVisibleWithMediatedNativeAd:expressView];
+        UIView *superview = expressView ? expressView.superview : nil;
+        UIView *viewForNotification = expressView ?: superview;
+
+        if (viewForNotification) {
+            [self.bridge nativeAd:self didVisibleWithMediatedNativeAd:viewForNotification];
         }
     }
 }
@@ -257,17 +370,18 @@
 
     // 通知融合 SDK 广告点击
     if (self.bridge) {
+        // ⚠️ 重要：先保存 expressView，避免后续访问时对象已被释放
         UIView *expressView = nativeExpressAd.expressView;
-        if (!expressView) {
-            expressView = nativeExpressAd.expressView.superview;
-        }
-        if (expressView) {
+        UIView *superview = expressView ? expressView.superview : nil;
+        UIView *viewForNotification = expressView ?: superview;
+
+        if (viewForNotification) {
             if ([self.bridge respondsToSelector:@selector(nativeAd:didClickWithMediatedNativeAd:)]) {
-                [self.bridge nativeAd:self didClickWithMediatedNativeAd:expressView];
+                [self.bridge nativeAd:self didClickWithMediatedNativeAd:viewForNotification];
             }
             // 通知融合 SDK 广告将展示全屏内容
             if ([self.bridge respondsToSelector:@selector(nativeAd:willPresentFullScreenModalWithMediatedNativeAd:)]) {
-                [self.bridge nativeAd:self willPresentFullScreenModalWithMediatedNativeAd:expressView];
+                [self.bridge nativeAd:self willPresentFullScreenModalWithMediatedNativeAd:viewForNotification];
             }
         }
     }
@@ -276,19 +390,140 @@
 - (void)express_handleAdDidClose:(LMNativeExpressAd *)nativeExpressAd {
     NSLog(@"LMBUMNativeAdapter[Express] 广告关闭，nativeExpressAd: %@", nativeExpressAd);
 
+    // ⚠️ 重要：在回调开始时立即保存 expressView 和 superview，因为后续 nativeExpressAd.expressView 可能被清理
+    UIView *expressView = nativeExpressAd.expressView;
+    UIView *superview = expressView ? expressView.superview : nil;
+
+    // ⚠️ 重要：先清理 delegate 引用，避免回调时持有引用
+    if (nativeExpressAd.delegate == self) {
+        nativeExpressAd.delegate = nil;
+        NSLog(@"LMBUMNativeAdapter[Express] 已清理 expressAd.delegate");
+    }
+
+    // 清理 expressAds 数组中的广告实例
+    if (self.expressAds && [self.expressAds containsObject:nativeExpressAd]) {
+        [self.expressAds removeObject:nativeExpressAd];
+        NSLog(@"LMBUMNativeAdapter[Express] 已从 expressAds 中移除广告实例");
+    }
+
+    // 清理 expressViewToAdMap 映射表中的视图映射
+    if (expressView && self.expressViewToAdMap) {
+        [self.expressViewToAdMap removeObjectForKey:expressView];
+        NSLog(@"LMBUMNativeAdapter[Express] 已从 expressViewToAdMap 中移除视图映射，view: %@", expressView);
+    }
+
+    // 清理全局映射表中的所有相关视图（确保完全清理）
+    [self _cleanupMapForExpressAd:nativeExpressAd];
+
     // 通知融合 SDK 广告关闭
     // 仅限模板广告，在模板广告关闭的时候调用，直接调用即可，无需做响应判断
     if (self.bridge) {
-        UIView *expressView = nativeExpressAd.expressView;
-        if (!expressView) {
-            expressView = nativeExpressAd.expressView.superview;
-            NSLog(@"LMBUMNativeAdapter[Express] 通知广告关闭，expressView: %@, expressView.superview: %@", expressView,
-                  expressView.superview);
-        }
+        // 使用之前保存的视图引用，避免访问已清理的 expressView
+        UIView *viewForNotification = expressView ?: superview;
         // 获取关闭原因（如果有的话）
         NSArray<NSString *> *closeReasons = nil; // 可以从 nativeExpressAd 获取关闭原因
-        NSLog(@"LMBUMNativeAdapter[Express] 通知广告关闭，expressView: %@, closeReasons: %@", expressView, closeReasons);
-        [self.bridge nativeAd:self didCloseWithExpressView:expressView ?: [[UIView alloc] init] closeReasons:closeReasons];
+        NSLog(@"LMBUMNativeAdapter[Express] 通知广告关闭，viewForNotification: %@, closeReasons: %@", viewForNotification,
+              closeReasons);
+        // ⚠️ 重要：如果视图为 nil，创建一个临时视图，避免传递 nil 导致崩溃
+        [self.bridge nativeAd:self
+            didCloseWithExpressView:viewForNotification ?: [[UIView alloc] init]
+                       closeReasons:closeReasons];
+    }
+}
+
+#pragma mark - 视图移除监听管理
+
+/// 注册视图到全局映射表，用于监听 removeFromSuperview
+- (void)_registerViewForRemoveObserver:(UIView *)view expressAd:(LMNativeExpressAd *)expressAd {
+    if (!view || !expressAd || !gMapTableQueue || !gViewToExpressAdMap) {
+        return;
+    }
+
+    dispatch_sync(gMapTableQueue, ^{
+        // 检查是否已经注册过
+        if ([gViewToExpressAdMap objectForKey:view]) {
+            NSLog(@"⚠️ LMBUMNativeAdapter[Express] 视图已注册过，跳过重复注册，view: %@", view);
+            return;
+        }
+
+        // 添加到全局映射表（弱引用 key，视图释放时自动清理）
+        [gViewToExpressAdMap setObject:expressAd forKey:view];
+        NSLog(@"LMBUMNativeAdapter[Express] 已注册视图移除监听，view: %@, expressAd: %@", view, expressAd);
+    });
+}
+
+/// 清理映射表中与指定 expressAd 相关的所有视图
+- (void)_cleanupMapForExpressAd:(LMNativeExpressAd *)expressAd {
+    if (!expressAd) {
+        return;
+    }
+
+    // ⚠️ 重要：使用同步队列保护全局映射表的访问
+    if (!gMapTableQueue) {
+        return;
+    }
+
+    // 收集需要移除的视图
+    NSMutableArray<UIView *> *viewsToRemove = [NSMutableArray array];
+
+    dispatch_sync(gMapTableQueue, ^{
+        if (!gViewToExpressAdMap) {
+            return;
+        }
+
+        // 遍历映射表，找到所有关联的视图
+        for (UIView *view in gViewToExpressAdMap) {
+            LMNativeExpressAd *ad = [gViewToExpressAdMap objectForKey:view];
+            if (ad == expressAd) {
+                [viewsToRemove addObject:view];
+            }
+        }
+
+        // 移除所有匹配的视图
+        for (UIView *view in viewsToRemove) {
+            [gViewToExpressAdMap removeObjectForKey:view];
+            NSLog(@"LMBUMNativeAdapter[Express] 已清理映射表中的视图，view: %@", view);
+        }
+    });
+
+    if (viewsToRemove.count > 0) {
+        NSLog(@"LMBUMNativeAdapter[Express] 已清理 %lu 个视图的映射关系", (unsigned long)viewsToRemove.count);
+    }
+}
+
+/// 清理全局映射表中与此 adapter 相关的所有视图
+/// 在 adapter dealloc 时调用，确保完全清理所有引用
+- (void)express_cleanupGlobalMapTable {
+    // ⚠️ 重要：使用同步队列保护全局映射表的访问
+    if (!gMapTableQueue) {
+        return;
+    }
+
+    // 收集需要移除的视图（所有与此 adapter 相关的视图）
+    NSMutableArray<UIView *> *viewsToRemove = [NSMutableArray array];
+
+    dispatch_sync(gMapTableQueue, ^{
+        if (!gViewToExpressAdMap) {
+            return;
+        }
+
+        // 遍历映射表，找到所有与此 adapter 相关的视图（通过 expressAds 数组匹配）
+        for (UIView *view in gViewToExpressAdMap) {
+            LMNativeExpressAd *expressAd = [gViewToExpressAdMap objectForKey:view];
+            if (expressAd && [self.expressAds containsObject:expressAd]) {
+                [viewsToRemove addObject:view];
+            }
+        }
+
+        // 移除所有匹配的视图
+        for (UIView *view in viewsToRemove) {
+            [gViewToExpressAdMap removeObjectForKey:view];
+            NSLog(@"LMBUMNativeAdapter[Express] dealloc 时清理全局映射表中的视图，view: %@", view);
+        }
+    });
+
+    if (viewsToRemove.count > 0) {
+        NSLog(@"LMBUMNativeAdapter[Express] dealloc 时清理了 %lu 个视图的全局映射关系", (unsigned long)viewsToRemove.count);
     }
 }
 

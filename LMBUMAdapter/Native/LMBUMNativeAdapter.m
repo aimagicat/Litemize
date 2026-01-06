@@ -10,15 +10,6 @@
 #import "LMBUMNativeAdViewCreator.h"
 #import "LMBUMNativeAdapter+Express.h"
 #import "LMBUMNativeAdapter+SelfRender.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
-#import <LitemizeSDK/LMNativeAdViewProtocol.h>
-#import <LitemizeSDK/LMNativeExpressAd.h>
-
-// GroMore SDK 相关头文件（如果可用）
-#import <BUAdSDK/BUAdSDK.h>
 
 @interface LMBUMNativeAdapter ()
 
@@ -170,23 +161,23 @@
 /// @param viewController 广告点击事件跳转控制器
 /// @param nativeAd 非模板广告的广告对象
 - (void)setRootViewController:(UIViewController *)viewController forNativeAd:(id)nativeAd {
-    NSLog(@"LMBUMNativeAdapter setRootViewController: %@ forNativeAd: %@", viewController, nativeAd);
+    // NSLog(@"LMBUMNativeAdapter setRootViewController: %@ forNativeAd: %@", viewController, nativeAd);
 
-    // nativeAd 应该是 LMNativeAdDataObject 或 LMNativeAd
-    // 需要找到对应的 LMNativeAd 实例并设置 viewController
-    if ([nativeAd isKindOfClass:[LMNativeAdDataObject class]]) {
-        LMNativeAdDataObject *dataObject = (LMNativeAdDataObject *)nativeAd;
-        // 从 nativeAds 中找到对应的实例
-        for (LMNativeAd *ad in self.nativeAds) {
-            if (ad.dataObject == dataObject) {
-                ad.viewController = viewController;
-                break;
-            }
-        }
-    } else if ([nativeAd isKindOfClass:[LMNativeAd class]]) {
-        LMNativeAd *ad = (LMNativeAd *)nativeAd;
-        ad.viewController = viewController;
-    }
+    //    // nativeAd 应该是 LMNativeAdDataObject 或 LMNativeAd
+    //    // 需要找到对应的 LMNativeAd 实例并设置 viewController
+    //    if ([nativeAd isKindOfClass:[LMNativeAdDataObject class]]) {
+    //        LMNativeAdDataObject *dataObject = (LMNativeAdDataObject *)nativeAd;
+    //        // 从 nativeAds 中找到对应的实例
+    //        for (LMNativeAd *ad in self.nativeAds) {
+    //            if (ad.dataObject == dataObject) {
+    //                ad.viewController = viewController;
+    //                break;
+    //            }
+    //        }
+    //    } else if ([nativeAd isKindOfClass:[LMNativeAd class]]) {
+    //        LMNativeAd *ad = (LMNativeAd *)nativeAd;
+    //        ad.viewController = viewController;
+    //    }
 }
 
 /// 非模板广告注册容器和可点击区域
@@ -198,32 +189,34 @@
                   forNativeAd:(id)nativeAd {
     NSLog(@"LMBUMNativeAdapter registerContainerView: %@ andClickableViews: %@ forNativeAd: %@", containerView, views, nativeAd);
 
-    // 找到对应的 LMNativeAd 实例并注册视图
-    LMNativeAd *ad = nil;
-    if ([nativeAd isKindOfClass:[LMNativeAdDataObject class]]) {
-        LMNativeAdDataObject *dataObject = (LMNativeAdDataObject *)nativeAd;
-        for (LMNativeAd *a in self.nativeAds) {
-            if (a.dataObject == dataObject) {
-                ad = a;
-                break;
-            }
-        }
-    } else if ([nativeAd isKindOfClass:[LMNativeAd class]]) {
-        ad = (LMNativeAd *)nativeAd;
-    }
-
-    if (ad && containerView) {
-        // 创建映射配置，一次性完成所有配置（包括视图层级调整）
-        LMNativeAdViewMapping *mapping = nil;
-        if (views && views.count > 0) {
-            mapping = [LMNativeAdViewMapping mappingWithCloseButton:nil yaoyiyaoView:nil viewsToBringToFront:views];
-        }
-
-        // 注册广告视图（用于曝光监听和点击上报）
-        // 如果提供了 mapping，会自动处理 viewsToBringToFront 中的视图层级
-        [ad registerAdView:containerView withMapping:mapping];
-    }
+    //    // 找到对应的 LMNativeAd 实例并注册视图
+    //    LMNativeAd *ad = nil;
+    //    if ([nativeAd isKindOfClass:[LMNativeAdDataObject class]]) {
+    //        LMNativeAdDataObject *dataObject = (LMNativeAdDataObject *)nativeAd;
+    //        for (LMNativeAd *a in self.nativeAds) {
+    //            if (a.dataObject == dataObject) {
+    //                ad = a;
+    //                break;
+    //            }
+    //        }
+    //    } else if ([nativeAd isKindOfClass:[LMNativeAd class]]) {
+    //        ad = (LMNativeAd *)nativeAd;
+    //    }
+    //
+    //    if (ad && containerView) {
+    //        // 创建映射配置，一次性完成所有配置（包括视图层级调整）
+    //        LMNativeAdViewMapping *mapping = nil;
+    //        if (views && views.count > 0) {
+    //            mapping = [LMNativeAdViewMapping mappingWithCloseButton:nil yaoyiyaoView:nil viewsToBringToFront:views];
+    //        }
+    //
+    //        // 注册广告视图（用于曝光监听和点击上报）
+    //        // 如果提供了 mapping，会自动处理 viewsToBringToFront 中的视图层级
+    //        [ad registerAdView:containerView withMapping:mapping];
+    //    }
 }
+
+#pragma mark - BUMCustomNativeAdapter Protocol Implementation
 
 /// 收到竞价结果信息时可能触发
 /// @param result 竞价结果模型
@@ -239,6 +232,9 @@
             NSLog(@"收到竞价结果，价格：%ld", (long)bidPrice);
         }
     }
+}
+- (void)unregisterClickableViewsForNativeAd:(id)nativeAd {
+    NSLog(@"LMBUMNativeAdapter unregisterClickableViewsForNativeAd: %@", nativeAd);
 }
 
 #pragma mark - Private Methods
@@ -261,17 +257,45 @@
 
 /// 清理广告资源
 - (void)_cleanupAds {
-    for (LMNativeAd *ad in self.nativeAds) {
-        ad.delegate = nil;
+    NSLog(@"🧹 LMBUMNativeAdapter 开始清理广告资源，adapter: %p", self);
+
+    // 清理自渲染广告
+    NSArray<LMNativeAd *> *nativeAdsCopy = [self.nativeAds copy];
+    for (LMNativeAd *ad in nativeAdsCopy) {
+        // 先清理 delegate，避免回调时持有引用
+        if (ad.delegate == self) {
+            ad.delegate = nil;
+            NSLog(@"🧹 已清理 nativeAd.delegate，ad: %p", ad);
+        }
         [ad close];
     }
     [self.nativeAds removeAllObjects];
 
-    for (LMNativeExpressAd *ad in self.expressAds) {
-        ad.delegate = nil;
+    // 清理模板广告
+    NSArray<LMNativeExpressAd *> *expressAdsCopy = [self.expressAds copy];
+    for (LMNativeExpressAd *ad in expressAdsCopy) {
+        // 先清理 delegate，避免回调时持有引用
+        if (ad.delegate == self) {
+            ad.delegate = nil;
+            NSLog(@"🧹 已清理 expressAd.delegate，ad: %p", ad);
+        }
         [ad close];
     }
     [self.expressAds removeAllObjects];
+
+    // 清理 expressViewToAdMap 映射表
+    if (self.expressViewToAdMap) {
+        NSUInteger mapCount = self.expressViewToAdMap.count;
+        [self.expressViewToAdMap removeAllObjects];
+        if (mapCount > 0) {
+            NSLog(@"🧹 已清理 expressViewToAdMap，清理了 %lu 个映射关系", (unsigned long)mapCount);
+        }
+    }
+
+    // 清理全局映射表中与此 adapter 相关的所有视图
+    [self _cleanupGlobalMapTable];
+
+    NSLog(@"🧹 LMBUMNativeAdapter 广告资源清理完成，adapter: %p", self);
 }
 
 #pragma mark - LMNativeAdDelegate
@@ -397,10 +421,24 @@
 #pragma mark - Dealloc
 
 - (void)dealloc {
-    NSLog(@"LMBUMNativeAdapter dealloc");
+    NSLog(@"✅ LMBUMNativeAdapter dealloc - adapter: %p", self);
 
-    // 确保清理资源
-    [self _cleanupAds];
+    // ⚠️ 重要：在 dealloc 中必须同步清理，不能使用异步调用
+    // 因为异步调用时 self 可能已经被释放，导致 EXC_BAD_ACCESS
+    // 如果当前不在主线程，需要同步切换到主线程执行
+    if ([NSThread isMainThread]) {
+        [self _cleanupAds];
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self _cleanupAds];
+        });
+    }
+}
+
+/// 清理全局映射表中与此 adapter 相关的所有视图
+- (void)_cleanupGlobalMapTable {
+    // 使用分类方法清理全局映射表
+    [self express_cleanupGlobalMapTable];
 }
 
 @end

@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.source_files = 'LMBUMAdapter/**/*.{h,m}'
   s.public_header_files = 'LMBUMAdapter/**/*.h'
   # 依赖的第三方库
-  s.dependency 'LitemizeSDK'
+  s.dependency 'LitemizeSDK', '~> 5.0'
   # 穿山甲 SDK 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入穿山甲 SDK，避免类冲突
   # 注意：这里使用前向声明，实际使用时需要导入穿山甲 SDK 的头文件

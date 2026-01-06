@@ -32,8 +32,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, weak) id<LMRewardedVideoAdDelegate> delegate;
 
+/// 是否由服务器验证奖励发放
+@property(nonatomic, assign) BOOL isServerReward;
+
+/// 是否发放奖励
+@property(nonatomic, assign) BOOL isSendReward;
+
+/// 初始化方法
+/// @param adSlot 广告位配置
+/// @return 如果 adSlot 为空或类型不正确，返回 nil
 - (instancetype)initWithSlot:(LMAdSlot *)adSlot;
+/// 加载广告
 - (void)loadAd;
+/// 展示广告
 - (void)showFromViewController:(UIViewController *)rootViewController;
 
 @end

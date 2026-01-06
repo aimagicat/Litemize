@@ -174,13 +174,13 @@
         containerView.adapter = self;
         self.bannerContainerView = containerView;
 
-        // 展示广告到容器视图
-        [bannerAd showInView:containerView];
-
         // 通知融合 SDK 广告加载成功，传入容器视图
         if (self.bridge) {
             [self.bridge bannerAd:self didLoad:containerView ext:ext];
         }
+
+        // 展示广告到容器视图
+        [bannerAd showInView:containerView];
     }
 }
 
@@ -203,11 +203,13 @@
 
 /// 广告即将展示
 - (void)lm_bannerAdWillVisible:(LMBannerAd *)bannerAd {
-    NSLog(@"LMBUMBannerAdapter lm_bannerAdWillVisible: %@", bannerAd);
-
     // 通知融合 SDK 广告已可见
     if (self.bridge && self.bannerContainerView) {
-        [self.bridge bannerAdDidBecomeVisible:self bannerView:self.bannerContainerView];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSLog(@"LMBUMBannerAdapter bannerAdDidBecomeVisible: %@ %@", self.bannerContainerView,
+                  self.bannerContainerView.superview);
+            [self.bridge bannerAdDidBecomeVisible:self bannerView:self.bannerContainerView];
+        });
     }
 }
 

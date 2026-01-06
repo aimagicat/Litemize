@@ -82,8 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///         一个 LMNativeAd 实例只维护一个广告
 @property(nonatomic, readonly, nullable) LMNativeAdDataObject *dataObject;
 
-/// 广告加载容器视图控制器（必填）
-@property(nonatomic, weak) UIViewController *viewController;
+/// 广告加载容器视图控制器
+@property(nonatomic, weak, nullable) UIViewController *viewController;
 
 /// 初始化方法
 /// - Parameter adSlot: 广告位配置，需设置 slotId 和 imgSize

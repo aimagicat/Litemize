@@ -4,10 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		K17s23KxW1WusZVkxJpUFg2WKVs=
-		</data>
 		<key>Assets.car</key>
 		<data>
 		9MmGqntb+qNVFFNaUfnjEh9WbN0=
@@ -18,7 +14,7 @@
 		</data>
 		<key>Headers/LMAdSDKConfigBuilder.h</key>
 		<data>
-		+NwN53zO0W6ZGrSvx1yHST1lcFk=
+		ULo+pkk0GuUNIToZnEJQ2QtqIBk=
 		</data>
 		<key>Headers/LMAdSlot.h</key>
 		<data>
@@ -46,7 +42,7 @@
 		</data>
 		<key>Headers/LMNativeAd.h</key>
 		<data>
-		W1FSxBf49Hsfkx8omi1z6sEtIis=
+		xGXFqlH7n2gEgkFuRRn6vIkvkrU=
 		</data>
 		<key>Headers/LMNativeAdDataObject.h</key>
 		<data>
@@ -66,7 +62,7 @@
 		</data>
 		<key>Headers/LMRewardedVideoAd.h</key>
 		<data>
-		Yck/KsyDu7Sran3faAeEYJBF7Tg=
+		s+TccKhCRUwntZ+ZGQT2yiw+4i0=
 		</data>
 		<key>Headers/LMSplashAd.h</key>
 		<data>
@@ -90,7 +86,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fNevt2XAvEHCEuwq3PLwiES04W8=
+		GO8zCQVPbpdq1Poqti/HeQ5wu6M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -121,7 +117,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NX7kUbTTjhPqgmy5YQm4UQIVBYvjHPvkZps0KNcEWNA=
+			R99qeLGCmNkaKNx13q7JZm4AUWa5MlEXP6s8+9AaI4o=
 			</data>
 		</dict>
 		<key>Headers/LMAdSlot.h</key>
@@ -170,7 +166,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eqrxm0FwkCKDm8Sc2uCTztC+U+8nANh7PrpK7AA/H78=
+			tuQIhX5O7kKv56wQAkt7Aksn4/B5e2MnuNEgWi8KfR0=
 			</data>
 		</dict>
 		<key>Headers/LMNativeAdDataObject.h</key>
@@ -205,7 +201,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9IsL7pAG3unoNKLJvkWcQ8NgaS37oTzXA87TpOBprcY=
+			yfQpRLkTmxH33qpdIGTh/oG+cOWa05ed6mNZZGD+w3c=
 			</data>
 		</dict>
 		<key>Headers/LMSplashAd.h</key>

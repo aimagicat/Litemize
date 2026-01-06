@@ -9,10 +9,7 @@
 #import "LMBUMNativeAdViewCreator.h"
 #import "LMBUMNativeAdapter+SelfRender.h"
 #import <BUAdSDK/BUAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
-#import <LitemizeSDK/LMNativeExpressAd.h>
+#import <LitemizeSDK/LitemizeSDK.h>
 
 /// 分类需要访问主类的私有属性和方法，在此重新声明
 @interface LMBUMNativeAdapter ()

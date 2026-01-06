@@ -7,7 +7,7 @@
 //
 
 #import "LMBUMNativeAdapter.h"
-
+#import <LitemizeSDK/LitemizeSDK.h>
 NS_ASSUME_NONNULL_BEGIN
 
 /// 自渲染广告处理分类
