@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LitemizeSDK'
-  s.version          = '5.1'
+  s.version          = '5.2'
   s.summary          = 'LitemizeSDK - 轻量级移动广告SDK'
   s.description      = <<-DESC
   LitemizeSDK 是一个轻量级的iOS广告SDK，支持横幅广告、插屏广告、原生广告、激励视频、开屏广告等多种广告形式。
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '12.0'
   s.requires_arc = true
 
-  s.vendored_frameworks = 'LitemizeSDK.framework'
+  s.vendored_frameworks = 'LitemizeSDK.xcframework'
 
 
   # 依赖的系统框架（必需）

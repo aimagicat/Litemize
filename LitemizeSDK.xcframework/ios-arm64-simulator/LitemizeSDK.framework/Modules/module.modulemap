@@ -1,0 +1,6 @@
+framework module LitemizeSDK {
+  umbrella header "LitemizeSDK.h"
+  export *
+
+  module * { export * }
+}
