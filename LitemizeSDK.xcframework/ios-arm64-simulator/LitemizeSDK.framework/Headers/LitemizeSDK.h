@@ -34,10 +34,14 @@ FOUNDATION_EXPORT const unsigned char LitemizeSDKVersionString[];
 // MARK: - 数据对象
 // 原生广告相关的数据对象（包含 LMNativeAdMaterialObject 和 LMNativeAdDataObject）
 #import <LitemizeSDK/LMNativeAdDataObject.h>
+// 开屏自渲染广告相关的数据对象（包含 LMSplashSelfRenderAdMaterialObject 和 LMSplashSelfRenderAdDataObject）
+#import <LitemizeSDK/LMSplashSelfRenderAdDataObject.h>
 
 // MARK: - 协议
 // 原生广告视图协议
 #import <LitemizeSDK/LMNativeAdViewProtocol.h>
+// 开屏自渲染广告视图协议
+#import <LitemizeSDK/LMSplashSelfRenderAdViewProtocol.h>
 
 // MARK: - SDK 入口
 // SDK 初始化和全局配置
@@ -53,6 +57,7 @@ FOUNDATION_EXPORT const unsigned char LitemizeSDKVersionString[];
 #import <LitemizeSDK/LMNativeExpressAd.h>
 #import <LitemizeSDK/LMRewardedVideoAd.h>
 #import <LitemizeSDK/LMSplashAd.h>
+#import <LitemizeSDK/LMSplashSelfRenderAd.h>
 
 // MARK: - Debug工具（可选功能）
 #if LITE_MOB_CXH_SDK_ENABLE_DEBUG_PANEL

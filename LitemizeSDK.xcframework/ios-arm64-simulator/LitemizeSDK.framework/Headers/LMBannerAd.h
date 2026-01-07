@@ -2,7 +2,7 @@
 //  LMBannerAd.h
 //  LitemizeSDK
 //
-//  Banner 横幅广告（门面类，通过 Adapter 模式加载广告）
+//  Banner 横幅广告
 //
 
 #import <LitemizeSDK/LMAdSlot.h>
@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)lm_bannerAdDidClose:(LMBannerAd *)bannerAd;
 @end
 
-/// Banner 横幅广告（门面类）
-/// - Note: 内部通过 AdapterManager 选择 Adapter（可能是 Core 或第三方 Adapter）
-@interface LMBannerAd : NSObject
+/// Banner 横幅广告
+/// - Note: Banner 广告需要通过 showInView: 方法展示到容器视图中
+@interface LMBannerAd : LMBaseAd
 
 /// 代理
 @property(nonatomic, weak) id<LMBannerAdDelegate> delegate;
@@ -42,21 +42,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// 加载广告
 - (void)loadAd;
 
-/// 关闭广告（从容器视图移除并释放资源，同时触发关闭回调）
+/// 展示广告到指定容器视图
+/// - Parameter containerView: 容器视图，Banner 广告将添加到该视图中
+- (void)showInView:(UIView *)containerView;
+
+/// 移除广告（从容器视图移除并清理资源）
+- (void)removeFromSuperview;
+
+/// 关闭广告（释放资源并触发关闭回调）
 /// - Note: 调用此方法会触发 lm_bannerAdDidClose: 回调
 - (void)close;
-
-/// 获取广告视图（加载成功后可用）
-/// @return Banner 广告视图，如果未加载或加载失败则返回 nil
-- (nullable UIView *)bannerView;
-
-/// 广告是否有效（未过期）
-/// @return YES 表示广告有效，NO 表示已过期
-- (BOOL)isAdValid;
-
-/// 获取广告的 eCPM（每千次展示成本，单位：元）
-/// @return eCPM 字符串，格式化为两位小数（如 "1.23"），如果没有 bid 或 price 为 0，返回 "0.00"
-- (NSString *)getEcpm;
 
 @end
 

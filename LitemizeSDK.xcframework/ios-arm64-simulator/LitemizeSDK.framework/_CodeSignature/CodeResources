@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/LMBannerAd.h</key>
 		<data>
-		ogDer8+A7ejiH6TyFiip6+18acM=
+		0zBnwcoBGa/3QH2fHwdPNcqT23M=
 		</data>
 		<key>Headers/LMBaseAd.h</key>
 		<data>
@@ -62,19 +62,31 @@
 		</data>
 		<key>Headers/LMRewardedVideoAd.h</key>
 		<data>
-		h6SQ4nPNLGRMjcXfKI8ywStZ3ag=
+		s+TccKhCRUwntZ+ZGQT2yiw+4i0=
 		</data>
 		<key>Headers/LMSplashAd.h</key>
 		<data>
-		Lcn44xYsr6cB6s+kZ3CKjaCVDA4=
+		b0VgCimVm39q6xK0fYBtqNyndg8=
+		</data>
+		<key>Headers/LMSplashSelfRenderAd.h</key>
+		<data>
+		otgEFBXwN23Jk1Bd2d87dXE+LBE=
+		</data>
+		<key>Headers/LMSplashSelfRenderAdDataObject.h</key>
+		<data>
+		3kjNZNs2B2svuK59z96H/5SAPds=
+		</data>
+		<key>Headers/LMSplashSelfRenderAdViewProtocol.h</key>
+		<data>
+		Wr/lekuYjCAp7G2m5kpItLMjtMI=
 		</data>
 		<key>Headers/LitemizeSDK.h</key>
 		<data>
-		JQX0uKSZJPnZMG57YZui8YnGaZA=
+		2xy/EZhyFAJ1cd+m8Y8nEGRHc+s=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hLo8EVu27Js7GKewMLmLVFkup2A=
+		N2nXGgyGaHZ7IcfbdxSugyjrO4s=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -119,7 +131,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tJV03hKOyJoBsYfHCgTVmB21E4DnRJPk+PCwwyCZIsM=
+			Hp8CMWueNfxAe+jm2jY1QFE5RJQaH7l9ETlNornLzNA=
 			</data>
 		</dict>
 		<key>Headers/LMBaseAd.h</key>
@@ -189,21 +201,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7/TF7tU++H1fL34uy+iuwlCPVYgeLi+P7F2t03yIGvY=
+			yfQpRLkTmxH33qpdIGTh/oG+cOWa05ed6mNZZGD+w3c=
 			</data>
 		</dict>
 		<key>Headers/LMSplashAd.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8K8ccRVAEZCOUDZ+jAvlrFVd+HojSj+QlGdA7ZRcpf0=
+			T5hj/fu5/NpEgbMaln6DDUxoX0eFhHyTSZ4Jv1F53Gk=
+			</data>
+		</dict>
+		<key>Headers/LMSplashSelfRenderAd.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NCtTGzEl5Fpg9v+muSv7jx0yMU9eZ0owMibLGVYnghU=
+			</data>
+		</dict>
+		<key>Headers/LMSplashSelfRenderAdDataObject.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			F1Bu93/GLAtRy4IGjtPGLtkieaWURFuioIbkb9hexBY=
+			</data>
+		</dict>
+		<key>Headers/LMSplashSelfRenderAdViewProtocol.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VdDrLcnWaVPfmIMUfiuBFgMbF0wbQHQqq6ymJjvlAEs=
 			</data>
 		</dict>
 		<key>Headers/LitemizeSDK.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Uh6J0q+SvECPNtbyrf7uBxA5geXgJ5zOLPeuz58i25Y=
+			sQLm+hzXdPsbqV9xbHjKluvI5IfnJSUoABshMI+qLKo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

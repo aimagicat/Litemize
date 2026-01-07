@@ -3,7 +3,8 @@
 //  LitemizeSDK
 //
 
-#import <LitemizeSDK/LitemizeSDK.h>
+#import <LitemizeSDK/LMAdSlot.h>
+#import <LitemizeSDK/LMBaseAd.h>
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /// MVP 激励视频
-@interface LMRewardedVideoAd : NSObject
+@interface LMRewardedVideoAd : LMBaseAd
 
 @property(nonatomic, weak) id<LMRewardedVideoAdDelegate> delegate;
 
@@ -43,24 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSlot:(LMAdSlot *)adSlot;
 /// 加载广告
 - (void)loadAd;
-
 /// 展示广告
 - (void)showFromViewController:(UIViewController *)rootViewController;
 
-/// 关闭广告
-- (void)close;
-
-/// 广告是否有效（未过期）
-/// @return YES 表示广告有效，NO 表示已过期
-- (BOOL)isAdValid;
-
-/// 获取广告的 eCPM（每千次展示成本，单位：元）
-/// @return eCPM 字符串，格式化为两位小数（如 "1.23"），如果没有 bid 或 price 为 0，返回 "0.00"
-- (NSString *)getEcpm;
-
-/// 广告是否已加载
-/// @return YES 表示广告已加载，NO 表示未加载
-- (BOOL)isLoaded;
 @end
 
 NS_ASSUME_NONNULL_END
