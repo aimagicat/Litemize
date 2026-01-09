@@ -10,32 +10,10 @@
 #import <LitemizeSDK/LMAdSlot.h>
 #import <LitemizeSDK/LMBannerAd.h>
 
-/// Banner 容器视图，用于监听移除事件
-@interface LMBUMBannerContainerView : UIView
-@property(nonatomic, weak, nullable) LMBUMBannerAdapter *adapter;
-@end
-
-@implementation LMBUMBannerContainerView
-
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-    // 检测视图被移除的情况（superview 为 nil）
-    if (!self.superview && self.adapter) {
-        NSLog(@"LMBUMBannerAdapter Banner 容器视图被移除，触发释放");
-        // 调用 Adapter 的释放方法
-        [self.adapter releaseBannerAd];
-    }
-}
-
-@end
-
 @interface LMBUMBannerAdapter () <LMBannerAdDelegate>
 
 /// 当前加载的 Banner 广告实例
 @property(nonatomic, strong, nullable) LMBannerAd *bannerAd;
-
-/// Banner 广告视图容器（用于展示广告）
-@property(nonatomic, strong, nullable) UIView *bannerContainerView;
 
 /// 是否已经调用过加载成功回调（避免重复调用）
 @property(nonatomic, assign) BOOL hasCalledLoadSuccess;
@@ -76,7 +54,7 @@
 /// 获取当前广告状态
 - (BUMMediatedAdStatus)mediatedAdStatus {
     BUMMediatedAdStatus status = BUMMediatedAdStatusUnknown;
-    if (self.bannerAd && self.bannerAd.isLoaded) {
+    if (self.bannerAd && self.bannerAd.isAdValid) {
         status.valid = BUMMediatedAdStatusValueSure;
     } else {
         status.valid = BUMMediatedAdStatusValueDeny;
@@ -165,22 +143,23 @@
             NSLog(@"LMBUMBannerAdapter 客户端竞价，ECPM: %@", ecpm);
         }
 
-        // 创建容器视图用于展示 Banner 广告
-        // Banner 广告需要通过 showInView: 方法展示，但这里先创建一个临时容器
-        // 实际的展示会在 BUM SDK 调用时进行
-        LMBUMBannerContainerView *containerView =
-            [[LMBUMBannerContainerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height)];
-        containerView.backgroundColor = [UIColor clearColor];
-        containerView.adapter = self;
-        self.bannerContainerView = containerView;
-
-        // 通知融合 SDK 广告加载成功，传入容器视图
-        if (self.bridge) {
-            [self.bridge bannerAd:self didLoad:containerView ext:ext];
+        // 获取实际的 Banner 视图（直接返回，不使用容器）
+        UIView *bannerView = [bannerAd bannerView];
+        if (!bannerView) {
+            NSLog(@"⚠️ LMBUMBannerAdapter Banner 视图为 nil，无法返回");
+            NSError *error = [NSError errorWithDomain:@"LMBUMBannerAdapter"
+                                                 code:-1
+                                             userInfo:@{NSLocalizedDescriptionKey : @"Banner 视图为 nil"}];
+            if (self.bridge) {
+                [self.bridge bannerAd:self didLoadFailWithError:error ext:@{}];
+            }
+            return;
         }
 
-        // 展示广告到容器视图
-        [bannerAd showInView:containerView];
+        // 通知融合 SDK 广告加载成功，直接传入 Banner 视图
+        if (self.bridge) {
+            [self.bridge bannerAd:self didLoad:bannerView ext:ext];
+        }
     }
 }
 
@@ -204,11 +183,10 @@
 /// 广告即将展示
 - (void)lm_bannerAdWillVisible:(LMBannerAd *)bannerAd {
     // 通知融合 SDK 广告已可见
-    if (self.bridge && self.bannerContainerView) {
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"LMBUMBannerAdapter bannerAdDidBecomeVisible: %@ %@", self.bannerContainerView,
-                  self.bannerContainerView.superview);
-            [self.bridge bannerAdDidBecomeVisible:self bannerView:self.bannerContainerView];
+            [self.bridge bannerAdDidBecomeVisible:self bannerView:bannerView];
         });
     }
 }
@@ -218,10 +196,11 @@
     NSLog(@"LMBUMBannerAdapter lm_bannerAdDidClick: %@", bannerAd);
 
     // 通知融合 SDK 广告被点击
-    if (self.bridge && self.bannerContainerView) {
-        [self.bridge bannerAdDidClick:self bannerView:self.bannerContainerView];
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView) {
+        [self.bridge bannerAdDidClick:self bannerView:bannerView];
         // 通知融合 SDK 广告将展示全屏内容
-        [self.bridge bannerAdWillPresentFullScreenModal:self bannerView:self.bannerContainerView];
+        [self.bridge bannerAdWillPresentFullScreenModal:self bannerView:bannerView];
     }
 }
 
@@ -230,8 +209,9 @@
     NSLog(@"LMBUMBannerAdapter lm_bannerAdDidClose: %@", bannerAd);
 
     // 通知融合 SDK 广告已关闭
-    if (self.bridge && self.bannerContainerView) {
-        [self.bridge bannerAd:self bannerView:self.bannerContainerView didClosedWithDislikeWithReason:nil];
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView) {
+        [self.bridge bannerAd:self bannerView:bannerView didClosedWithDislikeWithReason:nil];
     }
 
     // 清理资源
@@ -252,9 +232,6 @@
         [self.bannerAd close];
         self.bannerAd = nil;
     }
-
-    // 清理容器视图引用
-    self.bannerContainerView = nil;
 }
 
 #pragma mark - Dealloc

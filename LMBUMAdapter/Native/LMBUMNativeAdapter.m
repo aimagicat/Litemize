@@ -188,32 +188,6 @@
             andClickableViews:(NSArray<__kindof UIView *> *)views
                   forNativeAd:(id)nativeAd {
     NSLog(@"LMBUMNativeAdapter registerContainerView: %@ andClickableViews: %@ forNativeAd: %@", containerView, views, nativeAd);
-
-    //    // 找到对应的 LMNativeAd 实例并注册视图
-    //    LMNativeAd *ad = nil;
-    //    if ([nativeAd isKindOfClass:[LMNativeAdDataObject class]]) {
-    //        LMNativeAdDataObject *dataObject = (LMNativeAdDataObject *)nativeAd;
-    //        for (LMNativeAd *a in self.nativeAds) {
-    //            if (a.dataObject == dataObject) {
-    //                ad = a;
-    //                break;
-    //            }
-    //        }
-    //    } else if ([nativeAd isKindOfClass:[LMNativeAd class]]) {
-    //        ad = (LMNativeAd *)nativeAd;
-    //    }
-    //
-    //    if (ad && containerView) {
-    //        // 创建映射配置，一次性完成所有配置（包括视图层级调整）
-    //        LMNativeAdViewMapping *mapping = nil;
-    //        if (views && views.count > 0) {
-    //            mapping = [LMNativeAdViewMapping mappingWithCloseButton:nil yaoyiyaoView:nil viewsToBringToFront:views];
-    //        }
-    //
-    //        // 注册广告视图（用于曝光监听和点击上报）
-    //        // 如果提供了 mapping，会自动处理 viewsToBringToFront 中的视图层级
-    //        [ad registerAdView:containerView withMapping:mapping];
-    //    }
 }
 
 #pragma mark - BUMCustomNativeAdapter Protocol Implementation
