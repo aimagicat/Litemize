@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/LMAdSDK.h</key>
 		<data>
-		EMqx9UNhDKDPg4WjtqjMuxffp3s=
+		vcnLRzPD31inIS1jkBQVdf/irWI=
 		</data>
 		<key>Headers/LMAdSDKConfigBuilder.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/LMBannerAd.h</key>
 		<data>
-		0zBnwcoBGa/3QH2fHwdPNcqT23M=
+		ogDer8+A7ejiH6TyFiip6+18acM=
 		</data>
 		<key>Headers/LMBaseAd.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/LMError.h</key>
 		<data>
-		76fioH/ju96WiVeP09WqTAhXZOA=
+		VMI0qnvehqVIhAkVuf618yiLCtY=
 		</data>
 		<key>Headers/LMInterstitialAd.h</key>
 		<data>
@@ -42,51 +42,39 @@
 		</data>
 		<key>Headers/LMNativeAd.h</key>
 		<data>
-		xGXFqlH7n2gEgkFuRRn6vIkvkrU=
+		DccadFrKvL4nXRC1GrqJd89wEP0=
 		</data>
 		<key>Headers/LMNativeAdDataObject.h</key>
 		<data>
 		CcxdGszOiWnWkkJ1x1dw0cZoxOQ=
 		</data>
+		<key>Headers/LMNativeAdInternalAdapter.h</key>
+		<data>
+		k4cVfVarDaIxrjeEza0py4B8m44=
+		</data>
 		<key>Headers/LMNativeAdViewMapping.h</key>
 		<data>
-		dTET9zfK0wRrCc+LjGFcwiwb9nQ=
-		</data>
-		<key>Headers/LMNativeAdViewProtocol.h</key>
-		<data>
-		dsS3k5XTx3WGTZQbL9azoFiWKOw=
+		HWsWW+w/S60KnExGJpxIEEMMRQ8=
 		</data>
 		<key>Headers/LMNativeExpressAd.h</key>
 		<data>
-		eJgng88hWe25CxFZkfGvOuM+4Rk=
+		6zL8+EFsFRriRXlpet80BCVonTw=
 		</data>
 		<key>Headers/LMRewardedVideoAd.h</key>
 		<data>
-		s+TccKhCRUwntZ+ZGQT2yiw+4i0=
+		h6SQ4nPNLGRMjcXfKI8ywStZ3ag=
 		</data>
 		<key>Headers/LMSplashAd.h</key>
 		<data>
-		b0VgCimVm39q6xK0fYBtqNyndg8=
-		</data>
-		<key>Headers/LMSplashSelfRenderAd.h</key>
-		<data>
-		otgEFBXwN23Jk1Bd2d87dXE+LBE=
-		</data>
-		<key>Headers/LMSplashSelfRenderAdDataObject.h</key>
-		<data>
-		3kjNZNs2B2svuK59z96H/5SAPds=
-		</data>
-		<key>Headers/LMSplashSelfRenderAdViewProtocol.h</key>
-		<data>
-		Wr/lekuYjCAp7G2m5kpItLMjtMI=
+		Lcn44xYsr6cB6s+kZ3CKjaCVDA4=
 		</data>
 		<key>Headers/LitemizeSDK.h</key>
 		<data>
-		2xy/EZhyFAJ1cd+m8Y8nEGRHc+s=
+		iVezgWlnEW0nSATokNILHDdaMmg=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hLo8EVu27Js7GKewMLmLVFkup2A=
+		YoafQF4D0iTmtyTEhX+0qPdKVRs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -110,7 +98,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kbbhYcbzrlaD4PwXv6Sxz0kGj7qN1kjM8mnSgrMLag8=
+			EXSIuDv7a8Pm9+XJK3UXgCVZ5Kp9y9dxwz6651/EmpY=
 			</data>
 		</dict>
 		<key>Headers/LMAdSDKConfigBuilder.h</key>
@@ -131,7 +119,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Hp8CMWueNfxAe+jm2jY1QFE5RJQaH7l9ETlNornLzNA=
+			tJV03hKOyJoBsYfHCgTVmB21E4DnRJPk+PCwwyCZIsM=
 			</data>
 		</dict>
 		<key>Headers/LMBaseAd.h</key>
@@ -145,7 +133,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WgZL/W5bd32HkU2fJCXwnzVT8qFOfpeXzIPGC9alNZU=
+			QKmA0yNuTCHypJpQM8owIwF/uRuRqnZUV/sVBhiXmBU=
 			</data>
 		</dict>
 		<key>Headers/LMInterstitialAd.h</key>
@@ -166,7 +154,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tuQIhX5O7kKv56wQAkt7Aksn4/B5e2MnuNEgWi8KfR0=
+			aBtoWVu19YufSmyi7G16KCL8Bc33i1zKjIhFTes+RQ4=
 			</data>
 		</dict>
 		<key>Headers/LMNativeAdDataObject.h</key>
@@ -176,67 +164,46 @@
 			GS28ntZih5yFXBg9SY//JZqV9uqlmWsDgo4neHE1SRA=
 			</data>
 		</dict>
+		<key>Headers/LMNativeAdInternalAdapter.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VXsuOjc9eodDNeWWI/tbMsKu08lH5bDH9ugRensN9p4=
+			</data>
+		</dict>
 		<key>Headers/LMNativeAdViewMapping.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lSbtvVdui9UZcBDdV9DuyRHwFTakX8MLlIAkm8ky9nM=
-			</data>
-		</dict>
-		<key>Headers/LMNativeAdViewProtocol.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TXhegFhpRmCjw5QcMcpUV+75zOhX6/fdcm9ytkx3NG0=
+			mhD7czokaL4RCPsoBU0URfmEIzayZmKPaP4bdqRdTZo=
 			</data>
 		</dict>
 		<key>Headers/LMNativeExpressAd.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			H7lwf7XmFbZARIYMOGDatGgQzQPOPsGYWLCSvbf/Crg=
+			JdEUsdXm5A8NbmzbXgCT6tn1VeQE+jnYFd+4z+yGbR4=
 			</data>
 		</dict>
 		<key>Headers/LMRewardedVideoAd.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yfQpRLkTmxH33qpdIGTh/oG+cOWa05ed6mNZZGD+w3c=
+			7/TF7tU++H1fL34uy+iuwlCPVYgeLi+P7F2t03yIGvY=
 			</data>
 		</dict>
 		<key>Headers/LMSplashAd.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			T5hj/fu5/NpEgbMaln6DDUxoX0eFhHyTSZ4Jv1F53Gk=
-			</data>
-		</dict>
-		<key>Headers/LMSplashSelfRenderAd.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			NCtTGzEl5Fpg9v+muSv7jx0yMU9eZ0owMibLGVYnghU=
-			</data>
-		</dict>
-		<key>Headers/LMSplashSelfRenderAdDataObject.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			F1Bu93/GLAtRy4IGjtPGLtkieaWURFuioIbkb9hexBY=
-			</data>
-		</dict>
-		<key>Headers/LMSplashSelfRenderAdViewProtocol.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			VdDrLcnWaVPfmIMUfiuBFgMbF0wbQHQqq6ymJjvlAEs=
+			8K8ccRVAEZCOUDZ+jAvlrFVd+HojSj+QlGdA7ZRcpf0=
 			</data>
 		</dict>
 		<key>Headers/LitemizeSDK.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sQLm+hzXdPsbqV9xbHjKluvI5IfnJSUoABshMI+qLKo=
+			aw2+m4JSfIFmPP+3R2eZ0iAMWSXuf4RRbrZjg48CHAE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

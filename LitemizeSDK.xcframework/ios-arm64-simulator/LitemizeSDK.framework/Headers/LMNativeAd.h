@@ -7,10 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMBaseAd.h>
 #import <LitemizeSDK/LMNativeAdDataObject.h>
 #import <LitemizeSDK/LMNativeAdViewMapping.h>
-#import <LitemizeSDK/LMNativeAdViewProtocol.h>
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -73,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 信息流自渲染广告
 /// - Note: 适用于信息流自渲染广告场景，开发者需要自定义广告视图布局
-@interface LMNativeAd : LMBaseAd
+@interface LMNativeAd : NSObject
 
 /// 代理
 @property(nonatomic, weak) id<LMNativeAdDelegate> delegate;
@@ -117,6 +115,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Note: 调用此方法会清理所有已注册的视图、摇一摇视图和相关资源，释放广告对象
 - (void)close;
 
+/// 获取广告的 eCPM（每千次展示成本，单位：元）
+/// @return eCPM 字符串，格式化为两位小数（如 "1.23"），如果没有 bid 或 price 为 0，返回 "0.00"
+- (NSString *)getEcpm;
+
+/// 广告是否已加载
+/// @return YES 表示广告已加载，NO 表示未加载
+- (BOOL)isLoaded;
 @end
 
 NS_ASSUME_NONNULL_END

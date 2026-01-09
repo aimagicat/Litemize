@@ -32,24 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return 配置完成的映射对象
 + (instancetype)loadMapping:(void (^)(LMNativeAdViewMapping *mapping))block;
 
-/// 初始化方法
-/// @param closeButton 关闭按钮（可选）
-/// @param yaoyiyaoView 摇一摇视图（可选）
-- (instancetype)initWithCloseButton:(nullable UIButton *)closeButton yaoyiyaoView:(nullable UIView *)yaoyiyaoView;
-
-/// 便捷构造方法
-/// @param closeButton 关闭按钮（可选）
-/// @param yaoyiyaoView 摇一摇视图（可选）
-+ (instancetype)mappingWithCloseButton:(nullable UIButton *)closeButton yaoyiyaoView:(nullable UIView *)yaoyiyaoView;
-
-/// 便捷构造方法（支持 viewsToBringToFront）
-/// @param closeButton 关闭按钮（可选）
-/// @param yaoyiyaoView 摇一摇视图（可选）
-/// @param viewsToBringToFront 需要提到上层的视图数组（可选）
-+ (instancetype)mappingWithCloseButton:(nullable UIButton *)closeButton
-                          yaoyiyaoView:(nullable UIView *)yaoyiyaoView
-                   viewsToBringToFront:(nullable NSArray<UIView *> *)viewsToBringToFront;
-
 @end
+
+// 便捷宏用法示例：
+// LMNativeAdViewMapping *mapping = LMNativeAdViewMappingMake(^(LMNativeAdViewMapping *m) {
+//     m.closeButton = xxx;
+//     m.yaoyiyaoView = xxx;
+// });
+#define LMNativeAdViewMappingMake(block) [LMNativeAdViewMapping loadMapping:block]
 
 NS_ASSUME_NONNULL_END
