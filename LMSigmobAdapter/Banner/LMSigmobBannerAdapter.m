@@ -11,34 +11,12 @@
 #import <LitemizeSDK/LMAdSlot.h>
 #import <LitemizeSDK/LMBannerAd.h>
 
-/// Banner 容器视图，用于监听移除事件
-@interface LMSigmobBannerContainerView : UIView
-@property(nonatomic, weak, nullable) LMSigmobBannerAdapter *adapter;
-@end
-
-@implementation LMSigmobBannerContainerView
-
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-    // 检测视图被移除的情况（superview 为 nil）
-    if (!self.superview && self.adapter) {
-        LMSigmobLog(@"Banner 容器视图被移除，触发释放");
-        // 调用 Adapter 的释放方法
-        [self.adapter destory];
-    }
-}
-
-@end
-
 @interface LMSigmobBannerAdapter () <LMBannerAdDelegate>
 
 @property(nonatomic, weak) id<AWMCustomBannerAdapterBridge> bridge;
 
 /// 当前加载的 Banner 广告实例
 @property(nonatomic, strong, nullable) LMBannerAd *bannerAd;
-
-/// Banner 广告视图容器（用于展示广告）
-@property(nonatomic, strong, nullable) UIView *bannerContainerView;
 
 /// 是否已经调用过加载成功回调（避免重复调用）
 @property(nonatomic, assign) BOOL hasCalledLoadSuccess;
@@ -68,7 +46,7 @@
 
 - (BOOL)mediatedAdStatus {
     // 返回广告是否准备好
-    return self.bannerAd != nil && self.bannerAd.isLoaded;
+    return self.bannerAd != nil && self.bannerAd.isAdValid;
 }
 
 - (void)loadAdWithPlacementId:(NSString *)placementId parameter:(AWMParameter *)parameter {
@@ -155,7 +133,6 @@
         [self.bannerAd close];
         self.bannerAd = nil;
     }
-    self.bannerContainerView = nil;
 }
 
 #pragma mark - LMBannerAdDelegate
@@ -175,25 +152,28 @@
             LMSigmobLog(@"Banner 客户端竞价，ECPM: %@", ecpm);
         }
 
-        // 创建容器视图用于展示 Banner 广告
-        LMSigmobBannerContainerView *containerView =
-            [[LMSigmobBannerContainerView alloc] initWithFrame:CGRectMake(0, 0, self.adSize.width, self.adSize.height)];
-        containerView.backgroundColor = [UIColor clearColor];
-        containerView.adapter = self;
-        self.bannerContainerView = containerView;
+        // 获取实际的 Banner 视图（直接返回，不使用容器）
+        UIView *bannerView = [bannerAd bannerView];
+        if (!bannerView) {
+            LMSigmobLog(@"⚠️ Banner 视图为 nil，无法返回");
+            NSError *error = [NSError errorWithDomain:@"LMSigmobBannerAdapter"
+                                                 code:-1
+                                             userInfo:@{NSLocalizedDescriptionKey : @"Banner 视图为 nil"}];
+            if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoadFailWithError:ext:)]) {
+                [self.bridge bannerAd:self didLoadFailWithError:error ext:@{}];
+            }
+            return;
+        }
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
         if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didAdServerResponse:ext:)]) {
-            [self.bridge bannerAd:self didAdServerResponse:containerView ext:ext];
+            [self.bridge bannerAd:self didAdServerResponse:bannerView ext:ext];
         }
 
-        // 通知 ToBid SDK 广告加载成功，传入容器视图
+        // 通知 ToBid SDK 广告加载成功，直接传入 Banner 视图
         if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoad:)]) {
-            [self.bridge bannerAd:self didLoad:containerView];
+            [self.bridge bannerAd:self didLoad:bannerView];
         }
-
-        // 展示广告到容器视图
-        [bannerAd showInView:containerView];
     }
 }
 
@@ -219,12 +199,11 @@
     LMSigmobLog(@"Banner lm_bannerAdWillVisible: %@", bannerAd);
 
     // 通知 ToBid SDK 广告已可见
-    if (self.bridge && self.bannerContainerView &&
-        [self.bridge respondsToSelector:@selector(bannerAdDidBecomeVisible:bannerView:)]) {
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView && [self.bridge respondsToSelector:@selector(bannerAdDidBecomeVisible:bannerView:)]) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"LMSigmobBannerAdapter bannerAdDidBecomeVisible: %@ %@", self.bannerContainerView,
-                  self.bannerContainerView.superview);
-            [self.bridge bannerAdDidBecomeVisible:self bannerView:self.bannerContainerView];
+            NSLog(@"LMSigmobBannerAdapter bannerAdDidBecomeVisible: %@ %@", bannerView, bannerView.superview);
+            [self.bridge bannerAdDidBecomeVisible:self bannerView:bannerView];
         });
     }
 }
@@ -234,13 +213,14 @@
     LMSigmobLog(@"Banner lm_bannerAdDidClick: %@", bannerAd);
 
     // 通知 ToBid SDK 广告被点击
-    if (self.bridge && self.bannerContainerView) {
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView) {
         if ([self.bridge respondsToSelector:@selector(bannerAdDidClick:bannerView:)]) {
-            [self.bridge bannerAdDidClick:self bannerView:self.bannerContainerView];
+            [self.bridge bannerAdDidClick:self bannerView:bannerView];
         }
         // 通知 ToBid SDK 广告将展示全屏内容
         if ([self.bridge respondsToSelector:@selector(bannerAdWillPresentFullScreenModal:bannerView:)]) {
-            [self.bridge bannerAdWillPresentFullScreenModal:self bannerView:self.bannerContainerView];
+            [self.bridge bannerAdWillPresentFullScreenModal:self bannerView:bannerView];
         }
     }
 }
@@ -250,8 +230,9 @@
     LMSigmobLog(@"Banner lm_bannerAdDidClose: %@", bannerAd);
 
     // 通知 ToBid SDK 广告已关闭
-    if (self.bridge && self.bannerContainerView && [self.bridge respondsToSelector:@selector(bannerAdDidClosed:bannerView:)]) {
-        [self.bridge bannerAdDidClosed:self bannerView:self.bannerContainerView];
+    UIView *bannerView = [bannerAd bannerView];
+    if (self.bridge && bannerView && [self.bridge respondsToSelector:@selector(bannerAdDidClosed:bannerView:)]) {
+        [self.bridge bannerAdDidClosed:self bannerView:bannerView];
     }
 
     // 清理资源
