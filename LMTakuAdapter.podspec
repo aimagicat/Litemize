@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.dependency 'LitemizeSDK', '~> 5.0.5'
   # AnyThinkiOS 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入 AnyThinkiOS，避免类冲突
-  s.dependency 'AnyThinkiOS', '~> 6.0'
+  s.dependency 'AnyThinkiOS', '6.4.93'
   
   # 依赖的系统框架
   s.frameworks = [
