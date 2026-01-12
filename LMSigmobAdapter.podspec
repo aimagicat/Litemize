@@ -40,11 +40,6 @@ Pod::Spec.new do |s|
     'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
   }
   
-  # 配置用户目标编译选项，确保能找到依赖框架的头文件
-  s.user_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
-  }
-  
   # 注意：ToBid-iOS 包含静态链接的二进制文件
   # 提交到 CocoaPods Trunk 时需要使用 --use-libraries 标志
   # 使用者的 Podfile 中建议使用：use_frameworks! :linkage => :static
