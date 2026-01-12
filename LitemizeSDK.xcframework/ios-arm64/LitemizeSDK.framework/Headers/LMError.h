@@ -263,10 +263,4 @@ typedef NS_ERROR_ENUM(LMAdErrorDomain, LMAdErrorCode){
         _b;                                                                                                                      \
     })
 
-/// 检查错误是否可忽略（例如被系统阻止的跟踪器错误）
-/// - Parameter error: SDK 错误对象
-/// - Returns: YES 表示错误可忽略，不影响 SDK 正常使用
-/// - Note: 某些错误（如被系统隐私保护阻止的跟踪器连接）可以静默处理
-FOUNDATION_EXPORT BOOL LMErrorCanIgnore(NSError *error);
-
 NS_ASSUME_NONNULL_END
