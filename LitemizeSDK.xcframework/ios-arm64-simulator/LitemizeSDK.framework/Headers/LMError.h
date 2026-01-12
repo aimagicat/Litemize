@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+FOUNDATION_EXPORT NSString *const LMAdSDKErrorDidOccurNotification;
 
 FOUNDATION_EXPORT NSErrorDomain const LMAdErrorDomain;
 
@@ -163,6 +164,9 @@ typedef NS_ERROR_ENUM(LMAdErrorDomain, LMAdErrorCode){
     LMAdErrorDuplicateLoad = 1005, ///< 重复加载（广告已加载，不能重复加载）
     LMAdErrorDuplicateShow = 1006, ///< 重复展示（广告已展示，不能重复展示）
     LMAdErrorRequestInProgress = 1007, ///< 请求正在进行中（已有请求在进行，请等待完成或先取消）
+    // ===================== 适配器错误（1xxx）=====================
+    LMAdErrorAdapterNotStarted = 1008, ///< 适配器未初始化或初始化失败
+    LMAdErrorAdapterInvalidParameter = 1009, ///< 适配器参数无效（如 appId 为空等）
 
     // ===================== 参数/配置错误（2xxx）=====================
     LMAdErrorInvalidParameter = 2001, ///< 参数无效（如 viewController 为空、slotId 为空等）

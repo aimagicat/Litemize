@@ -38,6 +38,9 @@ typedef void (^LMAdSDKInitCompletion)(BOOL success, NSError *_Nullable error);
 /// 获取 SDK 版本号
 + (NSString *)sdkVersion;
 
+/// 获取 SDK 版本号前两位（主版本号.次版本号），如 "5.0.1" -> "5.0"
++ (NSString *)sdkVersionMajorMinor;
+
 /// 检查 SDK 是否已经初始化成功
 + (BOOL)isInitialized;
 
@@ -94,19 +97,6 @@ typedef void (^LMAdSDKInitCompletion)(BOOL success, NSError *_Nullable error);
 ///   - firstObject: 第一个参数（可变参数，以 nil 结尾）
 + (void)_performSelector:(SEL)selector onTarget:(id)target withObjects:(id)firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 
-/// 错误监控通知名（任何广告错误都会发送通知，object 为 NSError）
-FOUNDATION_EXPORT NSString *const LMAdSDKErrorDidOccurNotification;
-
-/// 发送错误通知（便捷宏）
-/// - Parameter error: 错误对象
-/// - Note: 内部会发送 LMAdSDKErrorDidOccurNotification 通知，错误监听器会自动处理日志
-#define LMErrorNotify(error)                                                                                                     \
-    do {                                                                                                                         \
-        if (error) {                                                                                                             \
-            [[NSNotificationCenter defaultCenter] postNotificationName:LMAdSDKErrorDidOccurNotification object:error];           \
-        }                                                                                                                        \
-    } while (0)
-
 /// 安全调用 delegate 方法（统一便捷宏）
 /// - Parameters:
 ///   - delegate: delegate 对象
@@ -120,74 +110,6 @@ FOUNDATION_EXPORT NSString *const LMAdSDKErrorDidOccurNotification;
 /// - Note: 所有 delegate 回调都会在主线程执行，使用方无需手动切换线程
 #define LMDelegateCall(delegate, selector, ...)                                                                                  \
     [LMAdSDK _performSelector:(selector) onTarget:(delegate)withObjects:__VA_ARGS__, nil]
-
-/// 定义 weakSelf（用于避免循环引用）
-/// - Parameter self: 当前对象（通常传入 self）
-/// - Note: 在 block 外使用，定义 __weak typeof(self) weakSelf = self
-/// - Example:
-///   LMWeakSelf(self);
-///   [someBlock:^{
-///     LMStrongSelf;
-///     // 使用 strongSelf
-///   }];
-#define LMWeakSelf(self) __weak typeof(self) weakSelf = self
-
-/// 定义 strongSelf 并检查（在 block 内使用）
-/// - Note: 在 block 内使用，定义 __strong typeof(weakSelf) strongSelf = weakSelf，并检查是否为 nil
-/// - Example:
-///   LMWeakSelf(self);
-///   [someBlock:^{
-///     LMStrongSelf;
-///     if (!strongSelf) return;
-///     // 使用 strongSelf
-///   }];
-/// - Note: 如果 weakSelf 为 nil，则直接 return（适用于 void block）
-#define LMStrongSelf                                                                                                             \
-    __strong typeof(weakSelf) strongSelf = weakSelf;                                                                             \
-    if (!strongSelf)                                                                                                             \
-    return
-
-/// 定义 strongSelf 并检查（带返回值）
-/// - Parameter returnValue: 如果 weakSelf 为 nil 时的返回值
-/// - Note: 适用于有返回值的 block
-/// - Example:
-///   LMWeakSelf(self);
-///   [someBlock:^BOOL{
-///     LMStrongSelfReturn(NO);
-///     // 使用 strongSelf
-///     return YES;
-///   }];
-#define LMStrongSelfReturn(returnValue)                                                                                          \
-    __strong typeof(weakSelf) strongSelf = weakSelf;                                                                             \
-    if (!strongSelf)                                                                                                             \
-    return returnValue
-
-/// 定义弱引用变量（通用版本，支持自定义变量名）
-/// - Parameters:
-///   - obj: 要弱引用的对象
-///   - varName: 弱引用变量名（会自动生成 weak##varName 和 strong##varName）
-/// - Note: 在 block 外使用，定义 __weak typeof(obj) weak##varName = obj
-/// - Example:
-///   LMWeakVar(bannerAd, BannerAd);
-///   [someBlock:^{
-///     LMStrongVar(BannerAd);
-///     // 使用 strongBannerAd
-///   }];
-#define LMWeakVar(obj, varName) __weak typeof(obj) weak##varName = obj
-
-/// 定义强引用变量并检查（通用版本，在 block 内使用）
-/// - Parameter varName: 变量名（与 LMWeakVar 中的 varName 对应，不需要加 weak/strong 前缀）
-/// - Note: 在 block 内使用，定义 __strong typeof(weak##varName) strong##varName = weak##varName，并检查是否为 nil
-/// - Example:
-///   LMWeakVar(bannerAd, BannerAd);
-///   [someBlock:^{
-///     LMStrongVar(BannerAd);
-///     // 使用 strongBannerAd
-///   }];
-#define LMStrongVar(varName)                                                                                                     \
-    __strong typeof(weak##varName) strong##varName = weak##varName;                                                              \
-    if (!strong##varName)                                                                                                        \
-    return
 
 @end
 

@@ -12,15 +12,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-//! Project version number for LitemizeSDK.
-//! 使用方式：NSLog(@"SDK Version Number: %f", LitemizeSDKVersionNumber);
-FOUNDATION_EXPORT double LitemizeSDKVersionNumber;
-
-//! Project version string for LitemizeSDK.
-//! 使用方式：NSLog(@"SDK Version String: %s", LitemizeSDKVersionString);
-//! 或者通过 [LMAdSDK sdkVersion] 方法获取版本号字符串
-FOUNDATION_EXPORT const unsigned char LitemizeSDKVersionString[];
-
 // MARK: - 基础配置类
 // 广告位配置、错误定义、日志系统等基础功能
 #import <LitemizeSDK/LMAdSlot.h>
@@ -34,14 +25,6 @@ FOUNDATION_EXPORT const unsigned char LitemizeSDKVersionString[];
 // MARK: - 数据对象
 // 原生广告相关的数据对象（包含 LMNativeAdMaterialObject 和 LMNativeAdDataObject）
 #import <LitemizeSDK/LMNativeAdDataObject.h>
-// 开屏自渲染广告相关的数据对象（包含 LMSplashSelfRenderAdMaterialObject 和 LMSplashSelfRenderAdDataObject）
-#import <LitemizeSDK/LMSplashSelfRenderAdDataObject.h>
-
-// MARK: - 协议
-// 原生广告视图协议
-#import <LitemizeSDK/LMNativeAdViewProtocol.h>
-// 开屏自渲染广告视图协议
-#import <LitemizeSDK/LMSplashSelfRenderAdViewProtocol.h>
 
 // MARK: - SDK 入口
 // SDK 初始化和全局配置
@@ -57,7 +40,6 @@ FOUNDATION_EXPORT const unsigned char LitemizeSDKVersionString[];
 #import <LitemizeSDK/LMNativeExpressAd.h>
 #import <LitemizeSDK/LMRewardedVideoAd.h>
 #import <LitemizeSDK/LMSplashAd.h>
-#import <LitemizeSDK/LMSplashSelfRenderAd.h>
 
 // MARK: - Debug工具（可选功能）
 #if LITE_MOB_CXH_SDK_ENABLE_DEBUG_PANEL
