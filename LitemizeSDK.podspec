@@ -17,15 +17,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.vendored_frameworks = 'LitemizeSDK.xcframework'
-  
-  # 配置架构：排除 x86_64，只使用 arm64（Apple Silicon 已普及，x86_64 支持已不再必要）
-  # 这样可以避免 "Unable to find matching slice" 警告
-  s.pod_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
-  }
-  s.user_target_xcconfig = {
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
-  }
 
   # 依赖的系统框架（必需）
   s.frameworks = [
