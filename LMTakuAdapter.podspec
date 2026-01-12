@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'LMTakuAdapter/**/*.{h,m}'
   s.public_header_files = 'LMTakuAdapter/**/*.h'
   # 依赖的第三方库
-  s.dependency 'LitemizeSDK', '~> 5.0.0'
+  s.dependency 'LitemizeSDK', '~> 5.0.5'
   # AnyThinkiOS 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入 AnyThinkiOS，避免类冲突
   s.dependency 'AnyThinkiOS', '~> 6.0'
