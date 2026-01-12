@@ -33,7 +33,11 @@ Pod::Spec.new do |s|
   
   # 配置编译选项：允许非模块化头文件
   s.pod_target_xcconfig = {
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+    # 确保能找到 LitemizeSDK 的头文件
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}/LitemizeSDK"',
+    # 排除 x86_64 架构（如果 xcframework 不支持）
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
   }
   
   # 注意：ToBid-iOS 包含静态链接的二进制文件
