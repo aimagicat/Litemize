@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LitemizeSDK'
-  s.version          = '5.0.2'
+  s.version          = '5.0.3'
   s.summary          = 'LitemizeSDK - 轻量级移动广告SDK'
   s.description      = <<-DESC
   LitemizeSDK 是一个轻量级的iOS广告SDK，支持横幅广告、插屏广告、原生广告、激励视频、开屏广告等多种广告形式。
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Litemob' => 'shibao@litemob.com' }
   s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '11.0'
   s.requires_arc = true
 
   s.vendored_frameworks = 'LitemizeSDK.xcframework'
