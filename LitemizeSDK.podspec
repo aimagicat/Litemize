@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LitemizeSDK'
-  s.version          = '5.0.4'
+  s.version          = '5.0.5'
   s.summary          = 'LitemizeSDK - 轻量级移动广告SDK'
   s.description      = <<-DESC
   LitemizeSDK 是一个轻量级的iOS广告SDK，支持横幅广告、插屏广告、原生广告、激励视频、开屏广告等多种广告形式。
@@ -17,7 +17,15 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.vendored_frameworks = 'LitemizeSDK.xcframework'
-
+  
+  # 配置架构：排除 x86_64，只使用 arm64（Apple Silicon 已普及，x86_64 支持已不再必要）
+  # 这样可以避免 "Unable to find matching slice" 警告
+  s.pod_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
+  }
+  s.user_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'x86_64'
+  }
 
   # 依赖的系统框架（必需）
   s.frameworks = [
