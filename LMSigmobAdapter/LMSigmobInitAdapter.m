@@ -7,7 +7,7 @@
 
 #import "LMSigmobInitAdapter.h"
 #import "LMSigmobAdapterLog.h"
-#import <LitemizeSDK/LMAdSDK.h>
+#import <LitemizeSDK/LitemizeSDK.h>
 
 @interface LMSigmobInitAdapter ()
 @property(nonatomic, weak) id<AWMCustomConfigAdapterBridge> bridge;
