@@ -148,7 +148,9 @@
         NSString *ecpm = [bannerAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            ext = @{@"price" : ecpm, @"currency" : @"CNY"};
+            // 单位分
+            NSString *ecpmString = [NSString stringWithFormat:@"%.2f", ecpm.floatValue / 1000.0];
+            ext = @{AWMMediaAdLoadingExtECPM : ecpmString};
             LMSigmobLog(@"Banner 客户端竞价，ECPM: %@", ecpm);
         }
 

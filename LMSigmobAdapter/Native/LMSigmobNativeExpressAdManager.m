@@ -119,10 +119,12 @@
         if ([firstAd respondsToSelector:@selector(getEcpm)]) {
             price = [firstAd getEcpm];
         }
+        // 单位分
+        NSString *ecpmString = [NSString stringWithFormat:@"%.2f", price.floatValue / 1000.0];
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (price && price.length > 0) {
-            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : price}];
+        if (ecpmString && ecpmString.length > 0) {
+            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : ecpmString}];
         }
 
         // 构建 AWMMediatedNativeAd 数组

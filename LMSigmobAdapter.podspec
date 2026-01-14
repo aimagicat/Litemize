@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LMSigmobAdapter'
-  s.version          = '5.0.5'
+  s.version          = '5.0.6'
   s.summary          = 'LMSigmobAdapter - LitemizeSDK 的 ToBid 适配器'
   s.description      = <<-DESC
   LMSigmobAdapter 是 LitemizeSDK 的第三方广告平台适配器，用于将 LitemizeSDK 接入到 ToBid SDK。
