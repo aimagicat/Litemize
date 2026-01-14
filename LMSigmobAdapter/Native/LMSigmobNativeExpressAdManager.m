@@ -114,13 +114,14 @@
         self.adViews = [loadedAds copy];
 
         // 获取第一个广告的 ECPM（用于客户端竞价）
+        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
         LMNativeExpressAd *firstAd = loadedAds.firstObject;
         NSString *price = nil;
         if ([firstAd respondsToSelector:@selector(getEcpm)]) {
             price = [firstAd getEcpm];
         }
-        // 单位分
-        NSString *ecpmString = [NSString stringWithFormat:@"%.2f", price.floatValue / 1000.0];
+        // 从元转换为分（1元 = 100分）
+        NSString *ecpmString = [NSString stringWithFormat:@"%.2f", price.floatValue * 100.0];
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
         if (ecpmString && ecpmString.length > 0) {

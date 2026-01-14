@@ -206,13 +206,14 @@
         self.hasCalledLoadSuccess = YES;
 
         // 获取 eCPM（用于客户端竞价）
+        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
         NSString *ecpm = [splashAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            // 单位分
-            NSString *ecpmString = [NSString stringWithFormat:@"%.2f", ecpm.floatValue / 1000.0];
+            // 从元转换为分（1元 = 100分）
+            NSString *ecpmString = [NSString stringWithFormat:@"%.2f", ecpm.floatValue * 100.0];
             ext = @{AWMMediaAdLoadingExtECPM : ecpmString};
-            LMSigmobLog(@"Splash 客户端竞价，ECPM: %@", ecpmString);
+            LMSigmobLog(@"Splash 客户端竞价，ECPM: %@元 (转换为分: %@)", ecpm, ecpmString);
         }
 
         // 通知 ToBid SDK 广告加载成功
