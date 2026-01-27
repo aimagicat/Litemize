@@ -60,9 +60,17 @@
 		<data>
 		3k5mjyfP+Yfvmy+q9369oSFU3j8=
 		</data>
+		<key>Headers/LitemobSDK.h</key>
+		<data>
+		DZKSD15qrDKfcz0Tw5LbQ4UUdAk=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		LI4ntZAV0gvrR4FQo8TCLB4NroY=
+		</data>
+		<key>Modules/module.modulemap</key>
+		<data>
+		NesEwb+wFuNk9v5BSlXsO2grJ0Q=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -167,6 +175,20 @@
 			<key>hash2</key>
 			<data>
 			Q0Lftt2U5rVtGyyNqWymuOA2CUHFxVZfr/NS08/NioU=
+			</data>
+		</dict>
+		<key>Headers/LitemobSDK.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iiaQTZUDajP2c1mNF5a4FjDFfjmL43p8CJOzYYToXwk=
+			</data>
+		</dict>
+		<key>Modules/module.modulemap</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oVMRVjkzk6hHKMFG3ETbcdHiYigKQkhxq1jIN1N63Yo=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>

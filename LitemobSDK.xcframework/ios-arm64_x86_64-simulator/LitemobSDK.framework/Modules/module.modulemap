@@ -1,0 +1,6 @@
+framework module LitemobSDK {
+  umbrella header "LitemobSDK.h"
+  export *
+
+  module * { export * }
+}
