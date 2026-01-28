@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
                        DESC
 
   # TODO: 发布前需要修改以下信息
-  s.homepage         = 'https://github.com/aimagicat/Litemize'
+  s.homepage         = 'https://github.com/aimagicat/Litemob'
   s.license          = { :type => 'MIT' }
   s.author           = { 'Litemob' => 'shibao@litemob.com' }
-  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
+  s.source           = { :git => 'https://github.com/aimagicat/Litemob.git', :tag => "v#{s.version}" }
 
   s.ios.deployment_target = '11.0'
   s.requires_arc = true
@@ -32,14 +32,10 @@ Pod::Spec.new do |s|
     'Foundation',
     'UIKit'
   ]
-
-  # 禁用预编译头，避免引用旧的 LitemizeSDK
-  s.prefix_header_file = false
   
   # 配置编译选项：允许非模块化头文件
   s.pod_target_xcconfig = {
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
-    'DEFINES_MODULE' => 'YES'
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
   }
   
   # 注意：Ads-CN-Beta 包含静态链接的二进制文件
