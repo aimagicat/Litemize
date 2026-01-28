@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Note: 调用此方法会清理所有已注册的视图、摇一摇视图和相关资源，释放广告对象
 - (void)close;
 
-/// 获取广告的 eCPM（每千次展示成本，单位：元）
+/// 获取广告的 eCPM（每千次展示成本，单位：分）
 /// @return eCPM 字符串，格式化为两位小数（如 "1.23"），如果没有 bid 或 price 为 0，返回 "0.00"
 - (NSString *)getEcpm;
 
