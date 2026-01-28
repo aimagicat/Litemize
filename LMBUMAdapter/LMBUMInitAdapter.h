@@ -1,9 +1,9 @@
 //
 //  LMBUMInitAdapter.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）初始化配置 Adapter
-//  用于将 LitemizeSDK 接入到穿山甲 SDK 中
+//  用于将 LitemobSDK 接入到穿山甲 SDK 中
 //
 
 #import <BUAdSDK/BUAdSDK.h>

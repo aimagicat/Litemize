@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdData.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流广告数据适配类实现
 //
@@ -71,11 +71,11 @@
 }
 
 - (NSString *)source {
-    return @"广告"; // LitemizeSDK 没有提供 source 字段，使用默认值
+    return @"广告"; // LitemobSDK 没有提供 source 字段，使用默认值
 }
 
 - (NSString *)buttonText {
-    return @"立即下载"; // LitemizeSDK 没有提供 buttonText 字段，使用默认值
+    return @"立即下载"; // LitemobSDK 没有提供 buttonText 字段，使用默认值
 }
 
 - (NSString *)appPrice {
@@ -112,15 +112,15 @@
 }
 
 - (NSInteger)score {
-    return 0; // LitemizeSDK 没有提供 score 字段
+    return 0; // LitemobSDK 没有提供 score 字段
 }
 
 - (NSInteger)commentNum {
-    return 0; // LitemizeSDK 没有提供 commentNum 字段
+    return 0; // LitemobSDK 没有提供 commentNum 字段
 }
 
 - (NSInteger)appSize {
-    return 0; // LitemizeSDK 没有提供 appSize 字段
+    return 0; // LitemobSDK 没有提供 appSize 字段
 }
 
 - (NSInteger)videoDuration {
@@ -148,11 +148,11 @@
 }
 
 - (NSDictionary *)mediaExt {
-    return nil; // LitemizeSDK 没有提供 mediaExt 字段
+    return nil; // LitemobSDK 没有提供 mediaExt 字段
 }
 
 - (BUMImage *)adLogo {
-    // LitemizeSDK 没有提供 adLogo 字段
+    // LitemobSDK 没有提供 adLogo 字段
     BUMImage *sdkLogo = [[BUMImage alloc] init];
     return sdkLogo;
 }

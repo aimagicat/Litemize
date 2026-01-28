@@ -1,14 +1,14 @@
 //
 //  LMBUMNativeAdapter+Express.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流模板广告处理分类实现
 //
 
 #import "LMBUMNativeAdapter+Express.h"
 #import <BUAdSDK/BUAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMNativeExpressAd.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMNativeExpressAd.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -97,7 +97,7 @@ static dispatch_queue_t gMapTableQueue = nil;
         // 视图释放时自动清理，无需手动管理
         gViewToExpressAdMap = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableStrongMemory];
         // 创建串行队列用于保护全局映射表的访问（线程安全）
-        gMapTableQueue = dispatch_queue_create("com.litemize.bum.nativeadapter.maptable", DISPATCH_QUEUE_SERIAL);
+        gMapTableQueue = dispatch_queue_create("com.Litemob.bum.nativeadapter.maptable", DISPATCH_QUEUE_SERIAL);
 
         // Hook UIView 的 removeFromSuperview 方法
         Class class = [UIView class];
@@ -140,8 +140,6 @@ static dispatch_queue_t gMapTableQueue = nil;
 
         // 替换方法实现
         method_setImplementation(originalMethod, swizzledIMP);
-
-        NSLog(@"✅ LMBUMNativeAdapter[Express] Hook removeFromSuperview 成功");
     });
 }
 
@@ -239,7 +237,7 @@ static dispatch_queue_t gMapTableQueue = nil;
     LMNativeExpressAd *expressAd = [self.expressViewToAdMap objectForKey:expressAdView];
 
     if (expressAd && expressAd.expressView == expressAdView) {
-        // LitemizeSDK 的模板广告需要调用 showInView: 来触发渲染
+        // LitemobSDK 的模板广告需要调用 showInView: 来触发渲染
         // showInView: 会将 expressView 添加到容器中，并触发渲染
         // expressView 的 superview 应该是带内边距的容器视图（由 demo 创建）
         UIView *containerView = expressAdView.superview;

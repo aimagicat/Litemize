@@ -1,15 +1,15 @@
 //
 //  LMBUMRewardedVideoAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）激励视频广告 Adapter 实现
 //
 
 #import "LMBUMRewardedVideoAdapter.h"
 #include <Foundation/NSObjCRuntime.h>
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMRewardedVideoAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMRewardedVideoAd.h>
 
 @interface LMBUMRewardedVideoAdapter () <LMRewardedVideoAdDelegate>
 
@@ -33,11 +33,6 @@
 @implementation LMBUMRewardedVideoAdapter
 
 #pragma mark - Class Loading
-
-/// 类加载时调用（系统自动调用）
-+ (void)load {
-    NSLog(@"✅ [LMBUMRewardedVideoAdapter] LMBUMRewardedVideoAdapter 类已加载到系统");
-}
 
 #pragma mark - BUMCustomRewardedVideoAdapter Protocol Implementation
 
@@ -228,7 +223,7 @@
 
     // 通知融合 SDK 广告即将展示
     if (self.bridge) {
-        // 通知融合 SDK 广告已展示（LitemizeSDK 没有单独的 DidVisible 回调，在 WillVisible 时一并通知）
+        // 通知融合 SDK 广告已展示（LitemobSDK 没有单独的 DidVisible 回调，在 WillVisible 时一并通知）
         [self.bridge rewardedVideoAdDidVisible:self];
     }
 }
@@ -264,7 +259,7 @@
     NSLog(@"LMBUMRewardedVideoAdapter lm_rewardedVideoAdDidRewardEffective: %@", rewardedAd);
 
     // 通知融合 SDK 服务器奖励验证成功
-    // 注意：LitemizeSDK 的奖励验证逻辑在内部处理，这里直接通知验证成功
+    // 注意：LitemobSDK 的奖励验证逻辑在内部处理，这里直接通知验证成功
     if (self.bridge) {
         [self.bridge rewardedVideoAd:self
             didServerRewardSuccessWithInfo:^(BUMAdapterRewardAdInfo *_Nonnull info) {

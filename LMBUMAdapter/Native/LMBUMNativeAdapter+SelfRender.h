@@ -1,13 +1,13 @@
 //
 //  LMBUMNativeAdapter+SelfRender.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流自渲染广告处理分类
 //  专门处理自渲染（Native）广告的逻辑
 //
 
 #import "LMBUMNativeAdapter.h"
-#import <LitemizeSDK/LitemizeSDK.h>
+#import <LitemobSDK/LitemobSDK.h>
 NS_ASSUME_NONNULL_BEGIN
 
 /// 自渲染广告处理分类

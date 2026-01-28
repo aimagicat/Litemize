@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdapter+SelfRender.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流自渲染广告处理分类实现
 //
@@ -9,7 +9,7 @@
 #import "LMBUMNativeAdViewCreator.h"
 #import "LMBUMNativeAdapter+SelfRender.h"
 #import <BUAdSDK/BUAdSDK.h>
-#import <LitemizeSDK/LitemizeSDK.h>
+#import <LitemobSDK/LitemobSDK.h>
 
 /// 分类需要访问主类的私有属性和方法，在此重新声明
 @interface LMBUMNativeAdapter ()

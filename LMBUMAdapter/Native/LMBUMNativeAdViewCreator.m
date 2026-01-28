@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdViewCreator.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流广告视图创建器实现
 //

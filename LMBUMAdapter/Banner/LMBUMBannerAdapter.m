@@ -1,14 +1,14 @@
 //
 //  LMBUMBannerAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）Banner 横幅广告 Adapter 实现
 //
 
 #import "LMBUMBannerAdapter.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMBannerAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMBannerAd.h>
 
 @interface LMBUMBannerAdapter () <LMBannerAdDelegate>
 
@@ -38,11 +38,6 @@
 @implementation LMBUMBannerAdapter
 
 #pragma mark - Class Loading
-
-/// 类加载时调用（系统自动调用）
-+ (void)load {
-    NSLog(@"✅ [LMBUMBannerAdapter] LMBUMBannerAdapter 类已加载到系统");
-}
 
 #pragma mark - BUMCustomBannerAdapter Protocol Implementation
 

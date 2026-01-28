@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdapter+Express.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流模板广告处理分类
 //  专门处理模板（Express）广告的逻辑

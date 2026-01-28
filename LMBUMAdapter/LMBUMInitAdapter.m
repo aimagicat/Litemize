@@ -1,12 +1,12 @@
 //
 //  LMBUMInitAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）初始化配置 Adapter 实现
 //
 
 #import "LMBUMInitAdapter.h"
-#import <LitemizeSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSDK.h>
 
 @implementation LMBUMInitAdapter
 
@@ -24,7 +24,7 @@
 /// @param initConfig 初始化配置，包括appid、appkey基本信息和部分用户传递配置
 - (void)initializeAdapterWithConfiguration:(BUMSdkInitConfig *_Nullable)initConfig {
     NSLog(@"LMBUMInitAdapter initializeAdapterWithConfiguration: %@", initConfig.userConfig.extraDeviceMap);
-    // 初始化 LitemizeSDK
+    // 初始化 LitemobSDK
     NSString *appId = initConfig.appID ?: @"";
 
     LMAdSDK *sdk = [LMAdSDK sharedSDK];
@@ -33,15 +33,15 @@
     [sdk startWithAppId:appId
              completion:^(BOOL success, NSError *_Nullable error) {
                  if (success) {
-                     NSLog(@"✅ LMBUMInitAdapter: LitemizeSDK 初始化成功");
+                     NSLog(@"✅ LMBUMInitAdapter: LitemobSDK 初始化成功");
                  } else {
-                     NSLog(@"❌ LMBUMInitAdapter: LitemizeSDK 初始化失败: %@", error.localizedDescription ?: @"unknown");
+                     NSLog(@"❌ LMBUMInitAdapter: LitemobSDK 初始化失败: %@", error.localizedDescription ?: @"unknown");
                  }
              }];
 
     // 其他配置
     // 如果 initConfig 中有主题状态配置，可以在这里处理
-    // 例如：处理 initConfig.themeStatus（如果 LitemizeSDK 支持主题配置）
+    // 例如：处理 initConfig.themeStatus（如果 LitemobSDK 支持主题配置）
 }
 
 /// adapter的版本号
@@ -62,8 +62,8 @@
 /// @param config 隐私合规配置，字段详见ABUPrivacyConfig.h文件
 - (void)didRequestAdPrivacyConfigUpdate:(NSDictionary *)config {
     // 处理隐私配置更新
-    // 根据穿山甲 SDK 的隐私配置要求，更新 LitemizeSDK 的隐私配置
-    // 如果 LitemizeSDK 支持隐私配置，可以在这里设置
+    // 根据穿山甲 SDK 的隐私配置要求，更新 LitemobSDK 的隐私配置
+    // 如果 LitemobSDK 支持隐私配置，可以在这里设置
     // 例如：处理 IDFA、地理位置等隐私权限配置
 }
 

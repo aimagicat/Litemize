@@ -1,14 +1,14 @@
 //
 //  LMBUMSplashAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）开屏广告 Adapter 实现
 //
 
 #import "LMBUMSplashAdapter.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMSplashAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMSplashAd.h>
 
 // 如果项目中有穿山甲 SDK，取消下面的注释并导入相应的头文件
 // #import <BUAdSDK/BUAdSDK.h>
@@ -36,11 +36,6 @@
 @implementation LMBUMSplashAdapter
 
 #pragma mark - Class Loading
-
-/// 类加载时调用（系统自动调用）
-+ (void)load {
-    NSLog(@"✅ [LMBUMSplashAdapter] LMBUMSplashAdapter 类已加载到系统");
-}
 
 #pragma mark - BUMCustomSplashAdapter Protocol Implementation
 

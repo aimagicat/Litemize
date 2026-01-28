@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流广告 Adapter 实现
 //
@@ -41,11 +41,6 @@
 @implementation LMBUMNativeAdapter
 
 #pragma mark - Class Loading
-
-/// 类加载时调用（系统自动调用）
-+ (void)load {
-    NSLog(@"✅ [LMBUMNativeAdapter] LMBUMNativeAdapter 类已加载到系统");
-}
 
 #pragma mark - Initialization
 

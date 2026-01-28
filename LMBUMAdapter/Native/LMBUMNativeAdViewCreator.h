@@ -1,6 +1,6 @@
 //
 //  LMBUMNativeAdViewCreator.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  穿山甲（BUM）信息流广告视图创建器
 //  实现 BUMMediatedNativeAdViewCreator 协议，提供媒体视图和标题标签
@@ -8,8 +8,8 @@
 
 #import <BUAdSDK/BUAdSDK.h>
 #import <Foundation/Foundation.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
+#import <LitemobSDK/LMNativeAd.h>
+#import <LitemobSDK/LMNativeAdDataObject.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
