@@ -32,10 +32,14 @@ Pod::Spec.new do |s|
     'Foundation',
     'UIKit'
   ]
+
+  # 禁用预编译头，避免引用旧的 LitemizeSDK
+  s.prefix_header_file = false
   
   # 配置编译选项：允许非模块化头文件
   s.pod_target_xcconfig = {
-    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
+    'DEFINES_MODULE' => 'YES'
   }
   
   # 注意：Ads-CN-Beta 包含静态链接的二进制文件
