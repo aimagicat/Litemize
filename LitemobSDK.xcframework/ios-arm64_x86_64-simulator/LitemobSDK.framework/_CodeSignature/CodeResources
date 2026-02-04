@@ -8,6 +8,18 @@
 		<data>
 		2OHqGYqMl8fY1RbWyyZJYn92ce0=
 		</data>
+		<key>Frameworks/Pods_LitemobSDK.framework/Info.plist</key>
+		<data>
+		zdnduVc0pZy2PWTXNnYFWZ2qysM=
+		</data>
+		<key>Frameworks/Pods_LitemobSDK.framework/Pods_LitemobSDK</key>
+		<data>
+		ZoIhIHeKaZkFta48JesW4O+GMSI=
+		</data>
+		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
+		<data>
+		MZ9GKioRUgFWFWlzRA2fYvk1q20=
+		</data>
 		<key>Headers/LMAdSDK.h</key>
 		<data>
 		RSn9pBwGBlVjIigJpMJmGrLbggo=
@@ -46,7 +58,7 @@
 		</data>
 		<key>Headers/LMNativeAdViewMapping.h</key>
 		<data>
-		r/UNIt0O2hjNcKEdbzeLoh4CFbU=
+		A7eYimEbf7FLJ+CwQihbqKe+xmk=
 		</data>
 		<key>Headers/LMNativeExpressAd.h</key>
 		<data>
@@ -66,7 +78,87 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		LI4ntZAV0gvrR4FQo8TCLB4NroY=
+		KuO0TbkXw9Oq01CpZcDoJaC4fio=
+		</data>
+		<key>LMAd1.bundle/arrow_base.png</key>
+		<data>
+		WMrUAV8X1/8L9lw+rnonhIdJ+RM=
+		</data>
+		<key>LMAd1.bundle/arrow_down.png</key>
+		<data>
+		GJaiyGv70Uv1ZobO1Ne9C/8s39Q=
+		</data>
+		<key>LMAd1.bundle/arrow_left.png</key>
+		<data>
+		iLEKJG0YUyh6Pgf4TW9HTN2dTb0=
+		</data>
+		<key>LMAd1.bundle/arrow_right.png</key>
+		<data>
+		txNIaFA4OZzJu5GiSRXHdJ5oYgY=
+		</data>
+		<key>LMAd1.bundle/arrow_up.png</key>
+		<data>
+		dRxmTOgPJIsA6WN1vRcXgGF9/6o=
+		</data>
+		<key>LMAd1.bundle/image_ad_close.png</key>
+		<data>
+		NlNRQi3mrsraFPydsRH7g0nShNY=
+		</data>
+		<key>LMAd1.bundle/image_ad_logo.png</key>
+		<data>
+		IVTaAeQLlet20fgQpMePasFtBcA=
+		</data>
+		<key>LMAd1.bundle/image_ad_sound_off.png</key>
+		<data>
+		I2WfCe9y/yAuWh9MMvyBLL+gie0=
+		</data>
+		<key>LMAd1.bundle/image_ad_sound_on.png</key>
+		<data>
+		qPbffdVnnyikEx8v5EL5sEtnRDw=
+		</data>
+		<key>LMAd1.bundle/image_shake_new.png</key>
+		<data>
+		XRmG5PhYLNJyeF3a6iY15+/eKoA=
+		</data>
+		<key>LMAd1.bundle/image_video_back_left.png</key>
+		<data>
+		FmVP43XEe94ziuJrDEVCTtvJqvk=
+		</data>
+		<key>LMAd1.bundle/image_video_fullscreen.png</key>
+		<data>
+		kicA46tMLvOWDJDqHcNW7kvTGOg=
+		</data>
+		<key>LMAd1.bundle/image_video_mute.png</key>
+		<data>
+		x+iei/sQBoni6S4vGH+fTlq4KtA=
+		</data>
+		<key>LMAd1.bundle/image_video_play.png</key>
+		<data>
+		BaacC7FDqlU0/4J9F1wHz2DxK0c=
+		</data>
+		<key>LMAd1.bundle/image_video_replay.png</key>
+		<data>
+		x7LG1LVwNbYFuxcQ5t2H9RQKzis=
+		</data>
+		<key>LMAd1.bundle/image_video_small.png</key>
+		<data>
+		0aKdaEvCZ8blcpmfKO/9TlHWUT8=
+		</data>
+		<key>LMAd1.bundle/image_video_unmute.png</key>
+		<data>
+		dMvUyrVHjdziha9OWGP75TMifHg=
+		</data>
+		<key>LMAd1.bundle/joy_pocket_1.png</key>
+		<data>
+		vmCQ4or1P4dHdxHnjEiFWxQ2ga0=
+		</data>
+		<key>LMAd1.bundle/joy_pocket_2.webp</key>
+		<data>
+		+QaGg50ajP/Hcg8e7ldVo8C4zho=
+		</data>
+		<key>LMAd1.bundle/joy_pocket_3.png</key>
+		<data>
+		Vyig2n6BS8LGBNXL1P+Y0k61ZjM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -76,6 +168,10 @@
 		<data>
 		bDyXwNqAgRCj5NOzuVmcRoosSGk=
 		</data>
+		<key>README.md</key>
+		<data>
+		AyRfjDqyAvu1xf5/j4/N639wnFg=
+		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -84,6 +180,27 @@
 			<key>hash2</key>
 			<data>
 			LhLI4uPWow64Cg7VpSH8yjB2jnDAYOv3kgB0XxJcZTE=
+			</data>
+		</dict>
+		<key>Frameworks/Pods_LitemobSDK.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PqY+jZTjIxSlzqeUDTk6tAsJjgDZ77ZjIjZ9cF3iAx8=
+			</data>
+		</dict>
+		<key>Frameworks/Pods_LitemobSDK.framework/Pods_LitemobSDK</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6JgbLtMgBpw3OS8xagt8b0YfmKrs9siEpJAd7+4SXsg=
+			</data>
+		</dict>
+		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OhyA1ptVTPmpgQgG5ZBDTlRYOJTQmdcPyQyBaTU7TYE=
 			</data>
 		</dict>
 		<key>Headers/LMAdSDK.h</key>
@@ -153,7 +270,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			66leW5q3JzNWaQWFFceRaHVuUit4WVF02cIMPwIMd2k=
+			fkDlnttneZvRL0UppbhDTmqOY9ScMC8Z50cUWgaOuH0=
 			</data>
 		</dict>
 		<key>Headers/LMNativeExpressAd.h</key>
@@ -184,6 +301,146 @@
 			iiaQTZUDajP2c1mNF5a4FjDFfjmL43p8CJOzYYToXwk=
 			</data>
 		</dict>
+		<key>LMAd1.bundle/arrow_base.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3n7f55MkWha5gO99naZHhXUvNnz1YUD62ESNC8yU1Zo=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/arrow_down.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8x5KjgS1n6aZTHjNk8n2JIzHh1mKCb/LAHZMO0mVDKE=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/arrow_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hfzJePLnfRjZNFa3h58h6PkZlx7d6TjXvir5aTIYFuA=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/arrow_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3BF7SlheYyzJLBmon5zV38D7PdHi44aSVDyqJvJsqs0=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/arrow_up.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wfs8wQBZRsx7Kv3IG/VcwUaVnQu2YxNUIsQ9OuHZBzo=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_ad_close.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6oH4R2zFHALl6mnoJ2V9UWe2cDatXj4vABoFacJMSQo=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_ad_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UYmyMVEuINK3QZ2jB5m4X5Fo1qAlFWWVm2x1lb6H6Hk=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_ad_sound_off.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gPYPk/z78EXiLbSKq0dv/75McE1+8sAlDwTuk+45cOM=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_ad_sound_on.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cCNHG0F61KOm2aGS64Gv7hL9drxR3943cRIXMT/gnKo=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_shake_new.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0gtOZG/wxfBoyG9j3sZ67YZgsSHM64S6CIYVNahcZJ0=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_back_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			w/Kb4COjcq2v5abAMk5AmCoh6LOmUffLGs+Hw1tVZHk=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_fullscreen.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qP4rW+ENAnRZbz/edOFno0VxQ6RUmsiEETsK76FYnn4=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_mute.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4us7nSxsFA+4jnITwgSB+9usQE0T9/I51awgE4HAE0g=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_play.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6BCXCtVdVc8IFGS7R890PZ1dL/6xlBvqtZVXWyp9q5M=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_replay.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nwA84N9SiEw/SNAplkWPy7Q/6aJQHzdRIkK9ynbwdRM=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_small.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EheqFKk/cQA5FPXitvv60CN2fontmtpdgJ8MsqRaJoQ=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/image_video_unmute.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o61XEvAv3ev1SxwOd9jLXQWHjdWDEj+6bK6Lpb4Wco8=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/joy_pocket_1.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9WF/DQ2265iaGmIh5sp4wIFElBtrvabjdcdl6ScLZrY=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/joy_pocket_2.webp</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OQv11DXah+wQIXHXxHH4a7ZlsGk+R5d0nJTjG++xnnc=
+			</data>
+		</dict>
+		<key>LMAd1.bundle/joy_pocket_3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			s0u6hI0RzduS+N73g316Wi3czSFv8J2V50Ippa0tKUA=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash2</key>
@@ -196,6 +453,13 @@
 			<key>hash2</key>
 			<data>
 			N3U0p+QVvUogvNF5Vwqv/lf2b4HM01VdQw9gjoZnGcQ=
+			</data>
+		</dict>
+		<key>README.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2rc2l9ii5tUnnS0eaMpXUy4aBlzYb6BbI8sZjV4GwpA=
 			</data>
 		</dict>
 	</dict>

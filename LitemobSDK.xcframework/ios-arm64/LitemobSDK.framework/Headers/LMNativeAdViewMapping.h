@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///         适用于第三方广告 SDK 的交互视图（如关闭按钮、下载按钮等）
 @property(nonatomic, strong, nullable) NSArray<UIView *> *viewsToBringToFront;
 
+/// 视图控制器（用于广告跳转和落地页展示）
+/// - Note: 某些第三方广告 SDK 需要此参数用于广告跳转
+@property(nonatomic, weak, nullable) UIViewController *viewController;
+
 /// 使用 block 配置映射（参考 Taku 的实现方式）
 /// @param block 配置 block，在 block 中设置映射属性
 /// @return 配置完成的映射对象
@@ -38,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 // LMNativeAdViewMapping *mapping = LMNativeAdViewMappingMake(^(LMNativeAdViewMapping *m) {
 //     m.closeButton = xxx;
 //     m.yaoyiyaoView = xxx;
+//     m.viewController = xxx;
 // });
 #define LMNativeAdViewMappingMake(block) [LMNativeAdViewMapping loadMapping:block]
 
