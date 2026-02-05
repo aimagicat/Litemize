@@ -1,9 +1,9 @@
 //
 //  LMSigmobInitAdapter.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 初始化配置 Adapter
-//  用于将 LitemizeSDK 接入到 ToBid SDK 中
+//  用于将 LitemobSDK 接入到 ToBid SDK 中
 //
 
 #import <Foundation/Foundation.h>

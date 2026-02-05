@@ -1,15 +1,15 @@
 //
 //  LMSigmobSplashAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 开屏广告 Adapter 实现
 //
 
 #import "LMSigmobSplashAdapter.h"
 #import "../LMSigmobAdapterLog.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMSplashAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMSplashAd.h>
 
 @interface LMSigmobSplashAdapter () <LMSplashAdDelegate>
 
@@ -206,14 +206,12 @@
         self.hasCalledLoadSuccess = YES;
 
         // 获取 eCPM（用于客户端竞价）
-        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
+        // 注意：LitemobSDK 的 getEcpm 返回单位已经是"分"，直接使用
         NSString *ecpm = [splashAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            // 从元转换为分（1元 = 100分）
-            NSString *ecpmString = [NSString stringWithFormat:@"%.2f", ecpm.floatValue * 100.0];
-            ext = @{AWMMediaAdLoadingExtECPM : ecpmString};
-            LMSigmobLog(@"Splash 客户端竞价，ECPM: %@元 (转换为分: %@)", ecpm, ecpmString);
+            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
+            LMSigmobLog(@"Splash 客户端竞价，ECPM: %@分", ecpm);
         }
 
         // 通知 ToBid SDK 广告加载成功

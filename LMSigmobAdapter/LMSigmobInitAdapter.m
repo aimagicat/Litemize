@@ -1,13 +1,13 @@
 //
 //  LMSigmobInitAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 初始化配置 Adapter 实现
 //
 
 #import "LMSigmobInitAdapter.h"
 #import "LMSigmobAdapterLog.h"
-#import <LitemizeSDK/LitemizeSDK.h>
+#import <LitemobSDK/LitemobSDK.h>
 
 @interface LMSigmobInitAdapter ()
 @property(nonatomic, weak) id<AWMCustomConfigAdapterBridge> bridge;
@@ -59,7 +59,7 @@
         return;
     }
 
-    // 初始化 LitemizeSDK
+    // 初始化 LitemobSDK
     LMAdSDK *sdk = [LMAdSDK sharedSDK];
     [LMAdSDK enableLog:YES];
 
@@ -72,13 +72,13 @@
                  }
 
                  if (success) {
-                     LMSigmobLog(@"✅ Init: LitemizeSDK 初始化成功");
+                     LMSigmobLog(@"✅ Init: LitemobSDK 初始化成功");
                      // 通知初始化成功
                      if (strongSelf.bridge && [strongSelf.bridge respondsToSelector:@selector(initializeAdapterSuccess:)]) {
                          [strongSelf.bridge initializeAdapterSuccess:strongSelf];
                      }
                  } else {
-                     LMSigmobLog(@"❌ Init: LitemizeSDK 初始化失败: %@", error.localizedDescription ?: @"unknown");
+                     LMSigmobLog(@"❌ Init: LitemobSDK 初始化失败: %@", error.localizedDescription ?: @"unknown");
                      // 通知初始化失败
                      if (strongSelf.bridge && [strongSelf.bridge respondsToSelector:@selector(initializeAdapterFailed:error:)]) {
                          [strongSelf.bridge
@@ -96,7 +96,7 @@
 - (void)didRequestAdPrivacyConfigUpdate:(NSDictionary *)config {
     LMSigmobLog(@"Init didRequestAdPrivacyConfigUpdate: %@", config);
     // 调用三方 adn 隐私设置接口
-    // 如果 LitemizeSDK 支持隐私配置，可以在这里设置
+    // 如果 LitemobSDK 支持隐私配置，可以在这里设置
     // 例如：处理 IDFA、地理位置等隐私权限配置
 }
 

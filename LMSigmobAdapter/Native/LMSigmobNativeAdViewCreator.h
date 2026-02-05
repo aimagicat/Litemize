@@ -1,14 +1,14 @@
 //
 //  LMSigmobNativeAdViewCreator.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 原生广告视图创建器
 //  实现 AWMMediatedNativeAdViewCreator 协议，提供媒体视图和标题标签
 //
 
 #import <Foundation/Foundation.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
+#import <LitemobSDK/LMNativeAd.h>
+#import <LitemobSDK/LMNativeAdDataObject.h>
 #import <WindMillSDK/WindMillSDK.h>
 
 NS_ASSUME_NONNULL_BEGIN

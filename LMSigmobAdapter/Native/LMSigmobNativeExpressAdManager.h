@@ -1,6 +1,6 @@
 //
 //  LMSigmobNativeExpressAdManager.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 模板渲染原生广告管理器
 //

@@ -1,15 +1,15 @@
 //
 //  LMSigmobRewardedVideoAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 激励视频广告 Adapter 实现
 //
 
 #import "LMSigmobRewardedVideoAdapter.h"
 #import "../LMSigmobAdapterLog.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMRewardedVideoAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMRewardedVideoAd.h>
 
 @interface LMSigmobRewardedVideoAdapter () <LMRewardedVideoAdDelegate>
 
@@ -199,14 +199,12 @@
         self.hasCalledLoadSuccess = YES;
 
         // 获取 eCPM（用于客户端竞价）
-        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
+        // 注意：LitemobSDK 的 getEcpm 返回单位已经是"分"，直接使用
         NSString *ecpm = [rewardedAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            // 从元转换为分（1元 = 100分）
-            NSString *ecpmString = [NSString stringWithFormat:@"%.2f", ecpm.floatValue * 100.0];
-            ext = @{AWMMediaAdLoadingExtECPM : ecpmString};
-            LMSigmobLog(@"RewardedVideo 客户端竞价，ECPM: %@元 (转换为分: %@)", ecpm, ecpmString);
+            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
+            LMSigmobLog(@"RewardedVideo 客户端竞价，ECPM: %@分", ecpm);
         }
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
@@ -280,7 +278,7 @@
 
     // 通知 ToBid SDK 激励成功
     // 注意：WindMillRewardInfo 需要从 rewardedAd 中获取相关信息
-    // 如果 LitemizeSDK 没有提供奖励信息，可以创建一个默认的 WindMillRewardInfo
+    // 如果 LitemobSDK 没有提供奖励信息，可以创建一个默认的 WindMillRewardInfo
     if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAd:didRewardSuccessWithInfo:)]) {
         // 创建奖励信息（根据实际需求调整）
         WindMillRewardInfo *rewardInfo = [[WindMillRewardInfo alloc] init];

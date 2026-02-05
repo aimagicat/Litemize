@@ -1,6 +1,6 @@
 //
 //  LMSigmobAdapterLog.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  LMSigmobAdapter 日志宏定义
 //

@@ -1,6 +1,6 @@
 //
 //  LMSigmobAdProtocol.h
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob Native 广告协议
 //  定义自渲染和模板渲染广告管理器的统一接口

@@ -1,6 +1,6 @@
 //
 //  LMSigmobNativeAdsManager.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 自渲染原生广告管理器实现
 //
@@ -9,10 +9,10 @@
 #import "../LMSigmobAdapterLog.h"
 #import "LMSigmobNativeAdData.h"
 #import "LMSigmobNativeAdViewCreator.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMNativeAd.h>
+#import <LitemobSDK/LMNativeAdDataObject.h>
 
 @interface LMSigmobNativeAdsManager () <LMNativeAdDelegate>
 
@@ -92,7 +92,7 @@
     LMSigmobLog(@"NativeAdsManager didReceiveBidResult: %@", result);
 
     // 处理竞价结果
-    // 注意：LitemizeSDK 的 LMNativeAd 可能不支持竞价结果上报，这里先保留接口
+    // 注意：LitemobSDK 的 LMNativeAd 可能不支持竞价结果上报，这里先保留接口
     // 如果后续 SDK 支持，可以在这里实现
 
     self.nativeAdDataArray = nil;
@@ -116,17 +116,15 @@
         self.nativeAdDataArray = [loadedAds copy];
 
         // 获取第一个广告的 ECPM（用于客户端竞价）
-        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
+        // 注意：LitemobSDK 的 getEcpm 返回单位已经是"分"，直接使用
         LMNativeAd *firstAd = loadedAds.firstObject;
         NSString *price = nil;
         if ([firstAd respondsToSelector:@selector(getEcpm)]) {
             price = [firstAd getEcpm];
         }
-        // 从元转换为分（1元 = 100分）
-        NSString *ecpmString = [NSString stringWithFormat:@"%.2f", price.floatValue * 100.0];
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (ecpmString && ecpmString.length > 0) {
-            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : ecpmString}];
+        if (price && price.length > 0) {
+            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : price}];
         }
 
         // 构建 AWMMediatedNativeAd 数组
@@ -137,7 +135,7 @@
             mNativeAd.originMediatedNativeAd = ad.dataObject;
 
             // 创建 ViewCreator（需要传入 nativeAd 和 adView）
-            // 注意：LitemizeSDK 的自渲染广告可能需要创建相关的视图
+            // 注意：LitemobSDK 的自渲染广告可能需要创建相关的视图
             LMSigmobNativeAdViewCreator *viewCreator = [[LMSigmobNativeAdViewCreator alloc] initWithNativeAd:ad];
             mNativeAd.viewCreator = viewCreator;
 

@@ -1,6 +1,6 @@
 //
 //  LMSigmobNativeAdViewCreator.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 原生广告视图创建器实现
 //
@@ -8,8 +8,8 @@
 #import "LMSigmobNativeAdViewCreator.h"
 #import "../LMSigmobAdapterLog.h"
 #import <AVFoundation/AVFoundation.h>
-#import <LitemizeSDK/LMNativeAd.h>
-#import <LitemizeSDK/LMNativeAdDataObject.h>
+#import <LitemobSDK/LMNativeAd.h>
+#import <LitemobSDK/LMNativeAdDataObject.h>
 #import <UIKit/UIKit.h>
 
 /// Sigmob 视频播放器视图（内部类）
@@ -266,7 +266,7 @@
 }
 
 - (void)setRootViewController:(UIViewController *)viewController {
-    // LitemizeSDK 的 LMNativeAd 可能需要在其他地方设置 viewController
+    // LitemobSDK 的 LMNativeAd 可能需要在其他地方设置 viewController
     // 这里先保留接口，如果 SDK 有相关方法可以在这里调用
     if (self.nativeAd) {
         // 如果 LMNativeAd 有 viewController 属性，可以在这里设置
@@ -276,7 +276,7 @@
 }
 
 - (void)registerContainer:(UIView *)containerView withClickableViews:(NSArray<UIView *> *)clickableViews {
-    // LitemizeSDK 的 LMNativeAd 可能需要注册容器视图
+    // LitemobSDK 的 LMNativeAd 可能需要注册容器视图
     // 这里先保留接口，如果 SDK 有相关方法可以在这里调用
     if (self.nativeAd) {
         LMNativeAdViewMapping *mapping = [LMNativeAdViewMapping loadMapping:^(LMNativeAdViewMapping *_Nonnull mapping) {

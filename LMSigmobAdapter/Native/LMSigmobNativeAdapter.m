@@ -1,6 +1,6 @@
 //
 //  LMSigmobNativeAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob Native 原生广告 Adapter 实现
 //

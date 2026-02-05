@@ -1,6 +1,6 @@
 //
 //  LMSigmobNativeExpressAdManager.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 模板渲染原生广告管理器实现
 //
@@ -8,9 +8,9 @@
 #import "LMSigmobNativeExpressAdManager.h"
 #import "../LMSigmobAdapterLog.h"
 #import "LMSigmobNativeAdViewCreator.h"
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMNativeExpressAd.h>
+#import <LitemobSDK/LMAdSDK.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMNativeExpressAd.h>
 
 @interface LMSigmobNativeExpressAdManager () <LMNativeExpressAdDelegate>
 
@@ -90,7 +90,7 @@
     LMSigmobLog(@"NativeExpressAdManager didReceiveBidResult: %@", result);
 
     // 处理竞价结果
-    // 注意：LitemizeSDK 的 LMNativeExpressAd 可能不支持竞价结果上报，这里先保留接口
+    // 注意：LitemobSDK 的 LMNativeExpressAd 可能不支持竞价结果上报，这里先保留接口
     // 如果后续 SDK 支持，可以在这里实现
 
     self.adViews = nil;
@@ -114,18 +114,16 @@
         self.adViews = [loadedAds copy];
 
         // 获取第一个广告的 ECPM（用于客户端竞价）
-        // 注意：LitemizeSDK 的 getEcpm 返回单位是"元"，ToBid SDK 期望单位是"分"
+        // 注意：LitemobSDK 的 getEcpm 返回单位已经是"分"，直接使用
         LMNativeExpressAd *firstAd = loadedAds.firstObject;
         NSString *price = nil;
         if ([firstAd respondsToSelector:@selector(getEcpm)]) {
             price = [firstAd getEcpm];
         }
-        // 从元转换为分（1元 = 100分）
-        NSString *ecpmString = [NSString stringWithFormat:@"%.2f", price.floatValue * 100.0];
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (ecpmString && ecpmString.length > 0) {
-            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : ecpmString}];
+        if (price && price.length > 0) {
+            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : price}];
         }
 
         // 构建 AWMMediatedNativeAd 数组

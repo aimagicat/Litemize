@@ -1,12 +1,12 @@
 //
 //  LMSigmobNativeAdData.m
-//  LitemizeSDK
+//  LitemobSDK
 //
 //  Sigmob 原生广告数据适配类实现
 //
 
 #import "LMSigmobNativeAdData.h"
-#import <LitemizeSDK/LMNativeAdDataObject.h>
+#import <LitemobSDK/LMNativeAdDataObject.h>
 
 @interface LMSigmobNativeAdData ()
 
@@ -42,12 +42,12 @@
 }
 
 - (NSString *)callToAction {
-    // LitemizeSDK 没有提供 callToAction 字段，使用默认值
+    // LitemobSDK 没有提供 callToAction 字段，使用默认值
     return @"立即下载";
 }
 
 - (double)rating {
-    // LitemizeSDK 没有提供 rating 字段，返回默认值 0
+    // LitemobSDK 没有提供 rating 字段，返回默认值 0
     return 0.0;
 }
 
@@ -83,13 +83,13 @@
 
 - (AWMNativeAdSlotAdType)adType {
     // 广告类型（普通广告，通常枚举值从 0 开始）
-    // LitemizeSDK 没有提供 adType 字段，返回默认值 0
+    // LitemobSDK 没有提供 adType 字段，返回默认值 0
     return (AWMNativeAdSlotAdType)0;
 }
 
 - (AWMNativeAdInteractionType)interactionType {
     // 交互类型（下载，通常枚举值从 0 开始，1 表示下载）
-    // LitemizeSDK 没有提供 interactionType 字段，返回默认值 1（下载）
+    // LitemobSDK 没有提供 interactionType 字段，返回默认值 1（下载）
     return (AWMNativeAdInteractionType)1;
 }
 
