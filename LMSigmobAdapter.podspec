@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/aimagicat/Litemize'
   s.license          = { :type => 'MIT' }
   s.author           = { 'Litemob' => 'shibao@litemob.com' }
-  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
+  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "LMSigmobAdapter-v#{s.version}" }
 
   s.ios.deployment_target = '11.0'
   s.requires_arc = true
