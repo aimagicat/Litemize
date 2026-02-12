@@ -14,7 +14,7 @@
 		</data>
 		<key>Frameworks/Pods_LitemobSDK.framework/Pods_LitemobSDK</key>
 		<data>
-		bHWlrhXBGCi8C9va9FKx0upF75I=
+		ArHEIr4YptNEwJuEEjHGw6o9jZY=
 		</data>
 		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		XEhACTN9hUWKIkYExO35D60n8hc=
+		iOhUg7LOIs/qAHcrN+8qBWlvlPQ=
 		</data>
 		<key>LMAd1.bundle/arrow_base.png</key>
 		<data>
@@ -159,10 +159,6 @@
 		<key>LMAd1.bundle/joy_pocket_3.png</key>
 		<data>
 		Vyig2n6BS8LGBNXL1P+Y0k61ZjM=
-		</data>
-		<key>LMMockRuntimeHook_ExampleUsage.md</key>
-		<data>
-		Cq75hoVtZIMwE+rETEvgI3i1kVY=
 		</data>
 		<key>LTAdSDK.bundle/ad.png</key>
 		<data>
@@ -269,7 +265,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fTjUP0dkAgNYnGxn9zVLaUJWmlnLUNNlmkD8s876Af8=
+			6bOxPo9NWOpTkSWGEhrgw6LfybQHq+I0XpAEOzZhCaY=
 			</data>
 		</dict>
 		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
@@ -515,13 +511,6 @@
 			<key>hash2</key>
 			<data>
 			s0u6hI0RzduS+N73g316Wi3czSFv8J2V50Ippa0tKUA=
-			</data>
-		</dict>
-		<key>LMMockRuntimeHook_ExampleUsage.md</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			wM2kef4F1Y/dTLeBQvTg08KBWtJjeJriJg2HmQ7Mglo=
 			</data>
 		</dict>
 		<key>LTAdSDK.bundle/ad.png</key>
