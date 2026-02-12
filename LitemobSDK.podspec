@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LitemobSDK'
-  s.version          = '5.0.8'
+  s.version          = '5.0.9'
   s.summary          = 'LitemobSDK - 轻量级移动广告SDK'
   s.description      = <<-DESC
   LitemobSDK 是一个轻量级的iOS广告SDK，支持横幅广告、插屏广告、原生广告、激励视频、开屏广告等多种广告形式。
