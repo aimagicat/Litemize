@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LMBUMAdapter'
-  s.version          = '5.0.8'
+  s.version          = '5.0.9'
   s.summary          = 'LMBUMAdapter - LitemobSDK 的穿山甲（BUM）适配器'
   s.description      = <<-DESC
   LMBUMAdapter 是 LitemobSDK 的第三方广告平台适配器，用于将 LitemobSDK 接入到穿山甲（BUM）SDK。
@@ -20,13 +20,14 @@ Pod::Spec.new do |s|
   s.source_files = 'LMBUMAdapter/**/*.{h,m}'
   s.public_header_files = 'LMBUMAdapter/**/*.h'
   # 依赖的第三方库
-  s.dependency 'LitemobSDK', '~> 5.0.8'
+  s.dependency 'LitemobSDK', '~> 5.0.9'
   # 穿山甲 SDK 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入穿山甲 SDK，避免类冲突
   # 注意：这里使用前向声明，实际使用时需要导入穿山甲 SDK 的头文件
-  # s.dependency 'Ads-CN', '~> x.x.x'  # 根据实际穿山甲 SDK 版本调整
-  s.dependency 'Ads-CN-Beta','~> 7.3.0.4'
-  
+  # 穿山甲 SDK：通过 Pod名/子规格名 声明需要的子模块，避免拉取全量
+  s.dependency 'Ads-CN-Beta/BUAdSDK', '~> 7.3.0.4'
+  s.dependency 'Ads-CN-Beta/CSJMediation', '~> 7.3.0.4'
+
   # 依赖的系统框架
   s.frameworks = [
     'Foundation',
