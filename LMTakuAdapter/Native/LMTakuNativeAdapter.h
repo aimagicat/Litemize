@@ -1,20 +1,24 @@
 //
 //  LMTakuNativeAdapter.h
-//  LitemizeSDK
+//  LitemobSDK
 //
-//  Taku/AnyThink 原生广告 Adapter
-//  用于将 LitemizeSDK 的原生广告接入到 Taku SDK 中
+//  Taku/AnyThink 原生（信息流）广告适配器
+//  继承 LMTakuBaseAdapter，实现 ATBaseNativeAdapterProtocol 协议
+//
+//  Created by Neko on 2026/01/28.
 //
 
+#import "../Base/LMTakuAdapterCommonHeader.h"
+#import "../Base/LMTakuBaseAdapter.h"
+#import <AnyThinkSDK/AnyThinkSDK.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// LiteMobCXH SDK 原生广告 Adapter
-/// 实现 ATAdAdapter 协议，将 LitemizeSDK 的原生广告接入 Taku SDK
-/// 注意：此类必须被导出，确保运行时可以找到
+/// Taku/AnyThink 原生（信息流）广告适配器
+/// 继承 LMTakuBaseAdapter，遵循 ATBaseNativeAdapterProtocol 协议，实现原生广告的加载逻辑
 __attribute__((visibility("default")))
-@interface LMTakuNativeAdapter : NSObject
+@interface LMTakuNativeAdapter : LMTakuBaseAdapter<ATBaseNativeAdapterProtocol>
 
 @end
 

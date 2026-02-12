@@ -1,150 +1,155 @@
 //
 //  LMTakuSplashAdapter.m
-//  LitemizeSDK
+//  LitemobSDK
 //
-//  Taku/AnyThink 开屏广告 Adapter 实现
+//  Taku/AnyThink 开屏广告适配器实现
+//
+//  Created by Neko on 2026/01/28.
 //
 
 #import "LMTakuSplashAdapter.h"
-
-#import "LMTakuSplashCustomEvent.h"
-#import <AnyThinkSplash/ATSplash.h>
-#import <AnyThinkSplash/ATSplashCustomEvent.h>
-#import <AnyThinkSplash/ATSplashManager.h>
-#import <LitemizeSDK/LMAdSDK.h>
-#import <LitemizeSDK/LMAdSlot.h>
-#import <LitemizeSDK/LMSplashAd.h>
+#import "../Base/LMTakuAdapterCommonHeader.h"
+#import "LMTakuSplashDelegate.h"
+#import <AnyThinkSDK/AnyThinkSDK.h>
+#import <Foundation/Foundation.h>
+#import <LitemobSDK/LMAdSlot.h>
+#import <LitemobSDK/LMSplashAd.h>
+#import <UIKit/UIKit.h>
 
 @interface LMTakuSplashAdapter ()
 
-/// CustomEvent 实例，用于处理广告回调
-@property(nonatomic, strong, nullable) LMTakuSplashCustomEvent *customEvent;
+/// 开屏广告代理对象，用于处理 LitemobSDK 的回调并转换为 AnyThink SDK 的回调
+@property(nonatomic, strong, nullable) LMTakuSplashDelegate *splashDelegate;
 
-/// 当前加载的开屏广告实例
+/// LitemobSDK 的开屏广告对象
 @property(nonatomic, strong, nullable) LMSplashAd *splashAd;
 
 @end
 
 @implementation LMTakuSplashAdapter
 
-#pragma mark - Class Loading
+#pragma mark - Lazy Properties
 
-/// 类加载时调用（系统自动调用）
-+ (void)load {
-    NSLog(@"✅ [LMTakuSplashAdapter] LMTakuSplashAdapter 类已加载到系统");
-}
-
-#pragma mark - ATAdAdapter Protocol Implementation
-
-/// Adapter 初始化方法
-/// @param serverInfo 服务端配置的参数字典（包含 slot_id、app_id 等）
-/// @param localInfo 本次加载传入的参数字典
-- (instancetype)initWithNetworkCustomInfo:(NSDictionary *)serverInfo localInfo:(NSDictionary *)localInfo {
-    self = [super init];
-    if (self != nil) {
-        // 初始化 完成
+/// 懒加载开屏广告代理对象
+- (LMTakuSplashDelegate *)splashDelegate {
+    if (_splashDelegate == nil) {
+        _splashDelegate = [[LMTakuSplashDelegate alloc] init];
+        // 设置 AnyThink SDK 的广告状态桥接对象
+        _splashDelegate.adStatusBridge = self.adStatusBridge;
     }
-    return self;
+    return _splashDelegate;
 }
 
-/// Adapter 发送加载请求，触发广告加载
-/// @param serverInfo 服务端配置的参数字典
-/// @param localInfo 本次加载传入的参数字典（包含超时时间、窗口等参数）
-/// @param completion 加载完成回调（成功返回广告对象数组，失败返回错误）
-- (void)loadADWithInfo:(NSDictionary *)serverInfo
-             localInfo:(NSDictionary *)localInfo
-            completion:(void (^)(NSArray *, NSError *))completion {
-    // 获取广告位 ID（从 serverInfo 中获取）
-    NSString *slotId = serverInfo[@"slot_id"];
+#pragma mark - Ad Load
+
+/// 加载开屏广告
+/// @param argument 包含服务器下发和本地配置的参数
+- (void)loadADWithArgument:(ATAdMediationArgument *)argument {
+    // 从 argument 对象中获取必要的加载信息
+    NSDictionary *serverContentDic = argument.serverContentDic ?: @{};
+    NSDictionary *localInfoDic = argument.localInfoDic ?: @{};
+
+    // 获取广告位 ID（slot_id）
+    NSString *slotId = serverContentDic[@"slot_id"];
+
+    // 参数校验
+    if (!slotId || slotId.length == 0) {
+        NSError *error = [NSError errorWithDomain:@"LMTakuSplashAdapter"
+                                             code:-1
+                                         userInfo:@{NSLocalizedDescriptionKey : @"slot_id 不能为空，请在后台配置 slot_id 参数"}];
+        // 通知 AnyThink SDK 加载失败
+        if (self.adStatusBridge && [self.adStatusBridge respondsToSelector:@selector(atOnAdLoadFailed:adExtra:)]) {
+            [self.adStatusBridge atOnAdLoadFailed:error adExtra:nil];
+        }
+        return;
+    }
 
     // 在主线程创建并加载广告
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 创建 CustomEvent 实例
-        self.customEvent = [[LMTakuSplashCustomEvent alloc] initWithInfo:serverInfo localInfo:localInfo];
-        // 必须赋值 completion block
-        self.customEvent.requestCompletionBlock = completion;
-        self.customEvent.containerView = localInfo[kATSplashExtraContainerViewKey];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+
+        // 先释放上一个开屏广告实例（如果存在）
+        if (strongSelf.splashAd) {
+            strongSelf.splashAd.delegate = nil;
+            strongSelf.splashAd = nil;
+        }
 
         // 创建广告位配置
         LMAdSlot *slot = [LMAdSlot slotWithId:slotId type:LMAdSlotTypeSplash];
-        // 设置期望的图片尺寸（开屏广告通常是全屏）
-        slot.imgSize = [UIScreen mainScreen].bounds.size;
 
         // 创建开屏广告实例
-        self.splashAd = [[LMSplashAd alloc] initWithSlot:slot];
-        // 设置代理为 CustomEvent，用于接收广告回调
-        self.splashAd.delegate = self.customEvent;
+        strongSelf.splashAd = [[LMSplashAd alloc] initWithSlot:slot];
+        // 设置代理为 splashDelegate，用于接收广告回调
+        strongSelf.splashAd.delegate = strongSelf.splashDelegate;
 
         // 开始加载广告
-        [self.splashAd loadAd];
+        [strongSelf.splashAd loadAd];
     });
 }
 
-/// 检查广告源是否已经准备好
-/// @param customObject 自定义广告平台的实例对象（这里是 LMSplashAd 实例）
-/// @param info 服务端配置的参数字典
-/// @return YES 表示广告已准备好，NO 表示未准备好
-+ (BOOL)adReadyWithCustomObject:(id)customObject info:(NSDictionary *)info {
-    NSLog(@"LMTakuSplashAdapter adReadyWithCustomObject: %@", customObject);
-    // 转换成 LMSplashAd 实例
-    LMSplashAd *splashAd = (LMSplashAd *)customObject;
-    return splashAd.isLoaded;
-}
+#pragma mark - Ad Show
 
 /// 展示开屏广告
-/// @param splash Taku SDK 传入的 ATSplash 对象
-/// @param localInfo 本次加载传入的参数字典，包含 window 等参数
-/// @param delegate 广告对象代理
-+ (void)showSplash:(id)splash localInfo:(NSDictionary *)localInfo delegate:(id)delegate {
-    // 从 ATSplash 对象中获取 customObject，直接就是 LMSplashAd 实例
-    ATSplash *splashObj = (ATSplash *)splash;
-    id customObject = splashObj.customObject;
+/// @param window 展示广告的窗口
+/// @param viewController 展示广告时传入的 UIViewController
+/// @param parameter 展示参数（可选）
+- (void)showSplashAdInWindow:(UIWindow *)window
+            inViewController:(UIViewController *)viewController
+                   parameter:(NSDictionary *)parameter {
+    LMTakuLog(@"Splash", @"showSplashAdInWindow: %@, inViewController: %@, parameter: %@", window, viewController, parameter);
 
-    // customObject 就是 LMSplashAd 实例
-    LMSplashAd *splashAd = nil;
-    if ([customObject isKindOfClass:[LMSplashAd class]]) {
-        splashAd = (LMSplashAd *)customObject;
-    } else {
-        NSLog(@"⚠️ showSplash: customObject 不是 LMSplashAd 类型，customObject=%@", customObject);
-        return;
-    }
-
-    // 获取 CustomEvent（通过 ATSplash 的 customEvent 属性）
-    LMTakuSplashCustomEvent *customEvent = nil;
-    if ([splashObj.customEvent isKindOfClass:[LMTakuSplashCustomEvent class]]) {
-        customEvent = (LMTakuSplashCustomEvent *)splashObj.customEvent;
-    }
-
-    // 获取 window（从 localInfo 中获取）
-    UIWindow *window = localInfo[kATSplashExtraWindowKey];
+    // 参数校验
     if (!window) {
-        NSLog(@"⚠️ showSplash: window 为空");
+        NSError *error = [NSError errorWithDomain:@"LMTakuSplashAdapter"
+                                             code:-2
+                                         userInfo:@{NSLocalizedDescriptionKey : @"window 不能为空"}];
+        // 通知 AnyThink SDK 展示失败
+        if (self.adStatusBridge && [self.adStatusBridge respondsToSelector:@selector(atOnAdShowFailed:extra:)]) {
+            [self.adStatusBridge atOnAdShowFailed:error extra:nil];
+        }
         return;
     }
 
-    // 获取背景图片视图（可选）
-    UIImageView *backgroundImageView = localInfo[kATSplashExtraBackgroundImageViewKey];
-
-    // 获取 containerView（如果有）
-    UIView *containerView = localInfo[kATSplashExtraContainerViewKey];
-
-    // 更新 CustomEvent 的 containerView 和 backgroundImageView（如果存在）
-    if (customEvent) {
-        if (containerView) {
-            customEvent.containerView = containerView;
+    // 检查广告是否已加载且有效
+    if (!self.splashAd || !self.splashAd.isLoaded || !self.splashAd.isAdValid) {
+        NSError *error = [NSError errorWithDomain:@"LMTakuSplashAdapter"
+                                             code:-3
+                                         userInfo:@{NSLocalizedDescriptionKey : @"广告尚未加载完成或已过期"}];
+        // 通知 AnyThink SDK 展示失败
+        if (self.adStatusBridge && [self.adStatusBridge respondsToSelector:@selector(atOnAdShowFailed:extra:)]) {
+            [self.adStatusBridge atOnAdShowFailed:error extra:nil];
         }
-        // 注意：backgroundImageView 可能需要保存到 CustomEvent 中，但目前 CustomEvent 没有这个属性
-        // 如果需要，可以在 CustomEvent 中添加 backgroundImageView 属性
+        return;
     }
 
-    // 展示广告（LMSplashAd 内部会处理 containerView 的添加）
-    [splashAd showInWindow:window];
+    // 展示广告（开屏广告使用 showInWindow: 方法）
+    [self.splashAd showInWindow:window];
+}
 
-    // 如果有背景图片视图，需要添加到 window 上（在最底层）
-    if (backgroundImageView && backgroundImageView.superview != window) {
-        [window addSubview:backgroundImageView];
-        [window sendSubviewToBack:backgroundImageView];
+#pragma mark - Ad Ready
+
+/// 检查开屏广告是否准备就绪
+/// @param info 广告信息字典
+/// @return YES 表示广告已准备就绪，NO 表示未准备就绪
+- (BOOL)adReadySplashWithInfo:(NSDictionary *)info {
+    // 检查广告是否已加载且有效
+    return self.splashAd != nil && self.splashAd.isLoaded && self.splashAd.isAdValid;
+}
+
+#pragma mark - Dealloc
+
+- (void)dealloc {
+    LMTakuLog(@"Splash", @"LMTakuSplashAdapter dealloc");
+    if (self.splashAd) {
+        self.splashAd.delegate = nil;
+        [self.splashAd close];
+        self.splashAd = nil;
     }
+    self.splashDelegate = nil;
 }
 
 @end

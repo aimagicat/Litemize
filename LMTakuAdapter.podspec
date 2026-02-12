@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = 'LMTakuAdapter'
-  s.version          = '5.0.5'
-  s.summary          = 'LMTakuAdapter - LitemizeSDK 的 Taku/AnyThink 适配器'
+  s.version          = '5.0.9'
+  s.summary          = 'LMTakuAdapter - LitemobSDK 的 Taku/AnyThink 适配器'
   s.description      = <<-DESC
-  LMTakuAdapter 是 LitemizeSDK 的第三方广告平台适配器，用于将 LitemizeSDK 接入到 Taku/AnyThink SDK。
+  LMTakuAdapter 是 LitemobSDK 的第三方广告平台适配器，用于将 LitemobSDK 接入到 Taku/AnyThink SDK。
                        DESC
 
   # TODO: 发布前需要修改以下信息
@@ -19,10 +19,10 @@ Pod::Spec.new do |s|
   s.source_files = 'LMTakuAdapter/**/*.{h,m}'
   s.public_header_files = 'LMTakuAdapter/**/*.h'
   # 依赖的第三方库
-  s.dependency 'LitemizeSDK', '~> 5.0.5'
+  s.dependency 'LitemobSDK', '~> 5.0.9'
   # AnyThinkiOS 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入 AnyThinkiOS，避免类冲突
-  s.dependency 'AnyThinkiOS', '6.4.93'
+  s.dependency 'AnyThinkiOS','6.5.34'
   
   # 依赖的系统框架
   s.frameworks = [
