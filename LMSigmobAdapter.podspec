@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'LMSigmobAdapter'
-  s.version          = '5.0.8'
+  s.version          = '5.0.9'
   s.summary          = 'LMSigmobAdapter - LitemobSDK 的 ToBid 适配器'
   s.description      = <<-DESC
   LMSigmobAdapter 是 LitemobSDK 的第三方广告平台适配器，用于将 LitemobSDK 接入到 ToBid SDK。
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/aimagicat/Litemize'
   s.license          = { :type => 'MIT' }
   s.author           = { 'Litemob' => 'shibao@litemob.com' }
-  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "LMSigmobAdapter-v#{s.version}" }
+  s.source           = { :git => 'https://github.com/aimagicat/Litemize.git', :tag => "v#{s.version}" }
 
   s.ios.deployment_target = '11.0'
   s.requires_arc = true
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'LMSigmobAdapter/**/*.{h,m}'
   s.public_header_files = 'LMSigmobAdapter/**/*.h'
   # 依赖的第三方库
-  s.dependency 'LitemobSDK', '~> 5.0.8'
+  s.dependency 'LitemobSDK', '~> 5.0.9'
   # ToBid-iOS SDK 作为依赖声明，但不打包进 framework
   # 使用者（主应用）需要自行引入 ToBid-iOS SDK，避免类冲突
   # 注意：这里使用前向声明，实际使用时需要导入 ToBid SDK 的头文件
