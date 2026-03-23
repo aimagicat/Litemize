@@ -7,6 +7,18 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+/// 自定义参数 key：广告来源，用于区分广告来源，由业务或适配层设置，key-value 由各使用方约定
+extern NSString *const kLMSplashAdCustomExtKeyAdFrom;
+
+/// 广告来源枚举
+typedef NS_ENUM(NSInteger, LMSplashAdAdFrom) {
+    LMSplashAdAdFromUnknown = 0,   /// 未知
+    LMSplashAdAdFromTakuAdapter = 1, /// Taku Adapter
+    LMSplashAdAdFromWindAdapter = 2, /// Wind / WindMill Adapter
+};
+
+/// 来源广告id
+extern NSString *const kLMSplashAdCustomExtKeyAdFromId;
 
 @class LMSplashAd;
 
@@ -50,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 底部信息区域的应用名称标签（可选，由应用提供，用于底部信息风格）
 @property(nonatomic, strong, nullable) UILabel *bottomAppNameLabel;
+
+/// 自定义参数，用于控制布局、样式等定制化需求，由业务或适配层设置，key-value 由各使用方约定
+@property(nonatomic, copy, nullable) NSDictionary<NSString *, id> *customExt;
 
 - (instancetype)initWithSlot:(LMAdSlot *)adSlot;
 

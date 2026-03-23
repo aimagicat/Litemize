@@ -14,7 +14,7 @@
 		</data>
 		<key>Frameworks/Pods_LitemobSDK.framework/Pods_LitemobSDK</key>
 		<data>
-		ArHEIr4YptNEwJuEEjHGw6o9jZY=
+		xAgQ2CtTzGDraUB39LF9gbNDSCg=
 		</data>
 		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Headers/LMSplashAd.h</key>
 		<data>
-		eXrlaxbUSDZu5mHEf8QJ1uxWa4o=
+		Y2SW94p8zYHyWOlFHIkXoUHLbMA=
 		</data>
 		<key>Headers/LitemobSDK.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		iOhUg7LOIs/qAHcrN+8qBWlvlPQ=
+		RDPWPAfaoDy1IQBE9sdb0ilzgpg=
 		</data>
 		<key>LMAd1.bundle/arrow_base.png</key>
 		<data>
@@ -160,49 +160,117 @@
 		<data>
 		Vyig2n6BS8LGBNXL1P+Y0k61ZjM=
 		</data>
-		<key>LTAdSDK.bundle/ad.png</key>
+		<key>LTAdSDK.bundle/Info.plist</key>
 		<data>
-		hxnCwjKaZW7J2NMwbUFjuTiX5is=
+		oPwpQjsyXpNtWNIRBtffoQgl154=
 		</data>
-		<key>LTAdSDK.bundle/ad_arrow.png</key>
+		<key>LTAdSDK.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
-		VYaGqu4P8m1GtXFmbFCDka+xkWo=
+		9mBNp6TjxMX/flIBAd1lrEvGEKM=
 		</data>
-		<key>LTAdSDK.bundle/closed.png</key>
+		<key>LTAdSDK.bundle/adBackGround.jpg</key>
 		<data>
-		7SFSjFrsl3tQYfiGm/Aw4yw6BQA=
+		Sn3EsfmX2two37B+doYOnezX9B4=
 		</data>
-		<key>LTAdSDK.bundle/lace.png</key>
+		<key>LTAdSDK.bundle/ad_back_black_blod.png</key>
 		<data>
-		r1NmLR0m7M+BQCQsocgNem4h0Po=
+		6SNjAsUMOYsIledy5Vj96P+hqco=
 		</data>
-		<key>LTAdSDK.bundle/lt_icon_shark.png</key>
+		<key>LTAdSDK.bundle/ad_back_white_blod.png</key>
 		<data>
-		9ENQo6qT7DNqp4xdO/QzQO4+lrE=
+		wAN+7yTGoDznaS0beGSg3r2da8Q=
 		</data>
-		<key>LTAdSDK.bundle/ltf_logo.png</key>
+		<key>LTAdSDK.bundle/ad_close_blod.png</key>
 		<data>
-		lapp8fp3BNmZ8DeHMI+OHL47sWM=
+		blbHratsTWdyTpl0uKnnyxQMc5M=
 		</data>
-		<key>LTAdSDK.bundle/marks.png</key>
+		<key>LTAdSDK.bundle/ad_page_loadingerr.png</key>
 		<data>
-		msXr1ijnFZrNDd2JrrYn0fDSTXY=
+		B6PuYbYy7NPvTqc9YqNgvZTFOaM=
 		</data>
-		<key>LTAdSDK.bundle/mute.png</key>
+		<key>LTAdSDK.bundle/ad_reward_giftpack.png</key>
 		<data>
-		DqP8GyPOd5i9JujtWf4z2buWzyo=
+		rpSz9Whff95IcxgLlHjZyhe8xWs=
 		</data>
-		<key>LTAdSDK.bundle/play_start.png</key>
+		<key>LTAdSDK.bundle/close_btn_prerender.png</key>
 		<data>
-		fwPlb8K26x9Nbxg9owXIZog4LUI=
+		vB8g9TAFIXnJ7lavN6uZG2RFQWc=
 		</data>
-		<key>LTAdSDK.bundle/reward.png</key>
+		<key>LTAdSDK.bundle/lt_actionButton.png</key>
 		<data>
-		ECcJVnjQ25+J5neoslvGSbRbfCk=
+		CUdV/JsTI0KkDbwjbRSS5WeNdxM=
 		</data>
-		<key>LTAdSDK.bundle/voice.png</key>
+		<key>LTAdSDK.bundle/lt_ad@2x.png</key>
 		<data>
-		OLZL9fT2Bg/ofBQnGtLqZL/Lf4g=
+		vO0PUs36Ku5ZlFz+3aO3Im3wKwI=
+		</data>
+		<key>LTAdSDK.bundle/lt_ad_rock.png</key>
+		<data>
+		GEqlMCVrUBxjCSXrzZnOV7BdB2U=
+		</data>
+		<key>LTAdSDK.bundle/lt_back@3x.png</key>
+		<data>
+		NZAFYDyxT5OQJoxHKGLJlxsckwU=
+		</data>
+		<key>LTAdSDK.bundle/lt_close@2x.png</key>
+		<data>
+		0gJ+UKvaKs7i/qEHQrikfn5cz0g=
+		</data>
+		<key>LTAdSDK.bundle/lt_close_btn@3x.png</key>
+		<data>
+		sYjC7/p1KQbYHj9A+/F2HfbEsqA=
+		</data>
+		<key>LTAdSDK.bundle/lt_play@3x.png</key>
+		<data>
+		hB1T7TYozqlqdHnV2kWwJyngXk0=
+		</data>
+		<key>LTAdSDK.bundle/lt_sound_close.png</key>
+		<data>
+		QWsR/0Q0UpvHhpW0YYoRmu8uanU=
+		</data>
+		<key>LTAdSDK.bundle/lt_sound_open.png</key>
+		<data>
+		vYpMblQfp5uLNOKbkdjJL/nY73I=
+		</data>
+		<key>LTAdSDK.bundle/lt_video_back@3x.png</key>
+		<data>
+		gLNMmmGi15jxWF05oqYO8r9yhLI=
+		</data>
+		<key>LTAdSDK.bundle/newTempRock.png</key>
+		<data>
+		JRhFSL9FudzReGtWfc8DHhlJMvQ=
+		</data>
+		<key>LTAdSDK.bundle/rockBtn.png</key>
+		<data>
+		hml6tkga53stbkN3PFMxgYQvrvg=
+		</data>
+		<key>LTAdSDK.bundle/rockSmallIcon.png</key>
+		<data>
+		iyXbIicgpQq6RjY//KwWJmMTLcE=
+		</data>
+		<key>LTAdSDK.bundle/splashDirection.png</key>
+		<data>
+		/PsLzYoBchX97Qu6KM1RvN5nrbI=
+		</data>
+		<key>LTAdSDK.bundle/splashRock.gif</key>
+		<data>
+		YB4HvPcu1XvMw+hmA2Pq2eaU/QI=
+		</data>
+		<key>LTAdSDK.bundle/splash_arrow.png</key>
+		<data>
+		as281X54k1CfYP4E2AQMNMnL9b4=
+		</data>
+		<key>LTAdSDK.bundle/splash_directions_small.png</key>
+		<data>
+		zA0OP9WbTNyCdI1w7+cu0C+fsDA=
+		</data>
+		<key>LTAdSDK.bundle/star.png</key>
+		<data>
+		w16gHNOf/EeSOTrJ3PB6mC9RjFI=
+		</data>
+		<key>LTAdSDK.bundle/twistSmallIcon.png</key>
+		<data>
+		iFkxTbIIVbdTP6zADnUUEQteYUY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -211,10 +279,6 @@
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
 		bDyXwNqAgRCj5NOzuVmcRoosSGk=
-		</data>
-		<key>README.md</key>
-		<data>
-		AyRfjDqyAvu1xf5/j4/N639wnFg=
 		</data>
 		<key>SYLTAd.bundle/close_w.png</key>
 		<data>
@@ -265,7 +329,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6bOxPo9NWOpTkSWGEhrgw6LfybQHq+I0XpAEOzZhCaY=
+			5YLKP+dhBrqxrKrAZ4EC4IkgDZgqdZINpjllFmSVnEg=
 			</data>
 		</dict>
 		<key>Frameworks/Pods_LitemobSDK.framework/_CodeSignature/CodeResources</key>
@@ -363,7 +427,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QWEJi656buo0bqzH+QKdW1CFFsUSM/DH7WtDa0ylW7g=
+			rLWYSEJ8vET5j7rw1ZYY0U+fMEhn42q6BDB7HA908+I=
 			</data>
 		</dict>
 		<key>Headers/LitemobSDK.h</key>
@@ -513,81 +577,200 @@
 			s0u6hI0RzduS+N73g316Wi3czSFv8J2V50Ippa0tKUA=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/ad.png</key>
+		<key>LTAdSDK.bundle/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BRd+WPekF8E/1XzhwapiMGE+9RRwWSFmGrQAuK+3Oas=
+			BHXjr6owwPEWSYoG8+X+I/hHtTzGE9WHrs8/qr4CXS0=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/ad_arrow.png</key>
+		<key>LTAdSDK.bundle/PrivacyInfo.xcprivacy</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qL4mfxLaZC8GYeG5uigQIoNQuCIgCx+zo6fTnrD2Qnk=
+			nzJ6oWTPqY2KQxD+Lz6cDjHkhASWiMgCQVXXYviuXPQ=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/closed.png</key>
+		<key>LTAdSDK.bundle/adBackGround.jpg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KcGpWswRe0DZDGokIJypRmAPn7mO7nT+Dsbte/Tn6hI=
+			QOj2g3iQKfsX3arQZR2EdkGYQD5reYQRy1zvvR9k4xU=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/lace.png</key>
+		<key>LTAdSDK.bundle/ad_back_black_blod.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XFPbOnM1V6hQ0yOKao/WBYJ2EZj1UuQ/tJunV60hpRs=
+			qiTOsNuedk9ZuBJ+P6+a3tKKn3doRUgo+v+RREPWdNM=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/lt_icon_shark.png</key>
+		<key>LTAdSDK.bundle/ad_back_white_blod.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+do+bhvJ8wAaAOrqdYLfw8u1Q8jJImS8kIaSvhmm+Pw=
+			qmqFz1Rf8bIz+FaH5Q80VRDPN0xL7gksmIDQt/EmiWI=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/ltf_logo.png</key>
+		<key>LTAdSDK.bundle/ad_close_blod.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/X7MTNk82AHPTEpQii7zAxABEMrsWBrHN6sIt0F/WLM=
+			25RZKWuKVtWpJtBIQX6eXFwOgCBCf5QgmwdGwb/Mc+I=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/marks.png</key>
+		<key>LTAdSDK.bundle/ad_page_loadingerr.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qtASHb4lXXUNNPzYFxItWJzo17SqA4cYqhnEF3hpdVM=
+			LJXVmnkmRRnfO45mfoLt/8l1xZa/4ErHYEue4xoMUwQ=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/mute.png</key>
+		<key>LTAdSDK.bundle/ad_reward_giftpack.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			PSP7aVEYh22FIL0iYKlTKl82/gDXdcWqVjcj5Iu11uA=
+			R19lKU8o3AYe0++3TREH/wSDV87AlFNx8jAU0qdNp6Y=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/play_start.png</key>
+		<key>LTAdSDK.bundle/close_btn_prerender.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cwVHwChdIC9tY6fKB670Onwx2RHI3SdhJJU2PS2NIyc=
+			UaLzujaLkhUIxKn6Un6t84pMcwL0CIPvPx10CLTvBDE=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/reward.png</key>
+		<key>LTAdSDK.bundle/lt_actionButton.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			PnO6A3RSk3tlKWhu2uNq1LHufRA9T3Tw/QG0uUyM6W8=
+			lgburCiU05nlfasPVUvimh9pwL0XgrGu+U46aR2rVjA=
 			</data>
 		</dict>
-		<key>LTAdSDK.bundle/voice.png</key>
+		<key>LTAdSDK.bundle/lt_ad@2x.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cwRZIZ0qFQful29yEx4Q4f1qXiM26tktcOpZmsn6T3Q=
+			u8bDMlZzXFotbsAJplfj53qy7OQbv81iw+dK/ZDYBfI=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_ad_rock.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			W2d+WWuopyl4OWk5S9hi0SIhIxmKvbZ7jA93AxOOG+Y=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_back@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6y0tNG8OFk8/eK8undjYw1TX1fNcGskmosMWpCFfvJg=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_close@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			/OZt3JZ8x6ia2iV1JnqvvMYIri5R1HpH6jM71A9FG/I=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_close_btn@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ybkpBmR0cHnknkdnbLtXANsg61o/sbBLnUuT6uHdd6Q=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_play@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Z8olMe2FBl1+mcoxb8WD4/Ko00rN2tpV9+IVjycoZDI=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_sound_close.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VX6K1/i/HeZAbT0UrtmLdgWMlM4TIiugecD8xmPPEIs=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_sound_open.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			U9ECvkXnr6DyhKBxkFQ/vo4+7lZBDbwimYRY1wXosdE=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/lt_video_back@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0rA266Es9v+QQH51i+SrkUOKZm1czUXoUAum7RIpsIs=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/newTempRock.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			aN6NLqM6QqZV8ozrcTzRS8q/FaNyI8Wko4HW+uxFeSI=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/rockBtn.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XJjvwwKdLC8hYTYz9TN21tfG6LACU6Xd4RVDseAU134=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/rockSmallIcon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SsmFKLNejka9Ys/AK0LVNL+YARo8x5IAftO5ksv9QmY=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/splashDirection.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nxOfIYurkRDdDIyBI7Nbh2FKZWr4qnPrypdv7nMJKTU=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/splashRock.gif</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YigDsszVGrnUehQMnZDPeYAI5jKbUna7sNmxhuMxKMA=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/splash_arrow.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			LInlBXncqGgLICQGPYDZwppKqK4b3pkJNdX2u6J+VaM=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/splash_directions_small.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0dKdLLOUMYWNjwp2S6ZB3jAzCsD1dw3L5VMESSWDEkY=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/star.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sMC33fhsBWQowzrjPAu+QgbQyLaBl0bQweejY/Xlxcs=
+			</data>
+		</dict>
+		<key>LTAdSDK.bundle/twistSmallIcon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7jCwKmAzUIGtMXp9Yic2L8QuigcqIyAEMW8JzbmCuhA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -602,13 +785,6 @@
 			<key>hash2</key>
 			<data>
 			N3U0p+QVvUogvNF5Vwqv/lf2b4HM01VdQw9gjoZnGcQ=
-			</data>
-		</dict>
-		<key>README.md</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2rc2l9ii5tUnnS0eaMpXUy4aBlzYb6BbI8sZjV4GwpA=
 			</data>
 		</dict>
 		<key>SYLTAd.bundle/close_w.png</key>
