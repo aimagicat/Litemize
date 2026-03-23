@@ -51,7 +51,10 @@
 
     // 获取广告位 ID（slot_id）
     NSString *slotId = serverContentDic[@"slot_id"];
-
+    //  slotId = @"94916299001";
+    // placementID
+    NSString *placementId = argument.placementID;
+    //  placementId = @"b696d0e260802d";
     // 参数校验
     if (!slotId || slotId.length == 0) {
         NSError *error = [NSError errorWithDomain:@"LMTakuSplashAdapter"
@@ -83,10 +86,11 @@
 
         // 创建开屏广告实例
         strongSelf.splashAd = [[LMSplashAd alloc] initWithSlot:slot];
-        // 设置代理为 splashDelegate，用于接收广告回调
         strongSelf.splashAd.delegate = strongSelf.splashDelegate;
-
-        // 开始加载广告
+        // 标记来自双开屏 adapter，传 adapter id 供定制化使用
+        strongSelf.splashAd.customExt =
+            @{kLMSplashAdCustomExtKeyAdFrom : @(LMSplashAdAdFromTakuAdapter),
+              kLMSplashAdCustomExtKeyAdFromId : placementId};
         [strongSelf.splashAd loadAd];
     });
 }
