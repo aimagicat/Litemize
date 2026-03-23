@@ -63,7 +63,7 @@
         }
         return;
     }
-
+    // placementId = @"94916299001";
     self.placementId = placementId;
     self.hasCalledLoadSuccess = NO;
     self.hasCalledLoadFailed = NO;
@@ -73,6 +73,7 @@
     __block CGSize expectSize = CGSizeZero;
     NSInteger tolerateTimeout = 3; // 默认超时时间
 
+    // NSString *adId = nil;
     if (parameter && parameter.extra) {
         // 获取自定义底部视图
         customBottomView = [parameter.extra objectForKey:AWMAdLoadingParamSPCustomBottomView];
@@ -89,6 +90,7 @@
         if (timeoutNumber) {
             tolerateTimeout = [timeoutNumber integerValue];
         }
+        adId = [parameter.extra objectForKey:@"m_rit_id"];
     }
 
     __weak typeof(self) ws = self;
@@ -118,6 +120,10 @@
         self.splashAd = [[LMSplashAd alloc] initWithSlot:slot];
         // 设置代理为 self，用于接收广告回调
         self.splashAd.delegate = self;
+        // 标记来自双开屏 adapter，传 adapter id 供定制化使用
+        self.splashAd.customExt =
+            @{kLMSplashAdCustomExtKeyAdFrom : @(LMSplashAdAdFromWindAdapter),
+              kLMSplashAdCustomExtKeyAdFromId : adId};
 
         // 如果有底部视图，设置底部视图
         if (customBottomView) {

@@ -48,6 +48,7 @@
             appId = initConfig.extra[@"appId"];
         }
     }
+    // appId = @"1104";
 
     if (appId.length == 0) {
         NSError *error = [NSError errorWithDomain:@"LMSigmobInitAdapter"
