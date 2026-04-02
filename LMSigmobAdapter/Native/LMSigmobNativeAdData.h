@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LMSigmobNativeAdData : NSObject <AWMMediatedNativeAdData>
 
 /// 初始化方法
-/// @param dataObject 原始广告数据对象
-- (instancetype)initWithDataObject:(LMNativeAdDataObject *)dataObject;
+/// @param dataObject 原始广告数据对象，模板广告场景下可为空
+- (instancetype)initWithDataObject:(nullable LMNativeAdDataObject *)dataObject;
 
 @end
 

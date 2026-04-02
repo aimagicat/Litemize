@@ -7,6 +7,7 @@
 
 #import "LMSigmobInitAdapter.h"
 #import "LMSigmobAdapterLog.h"
+#import "LMSigmobBridgeHelper.h"
 #import <LitemobSDK/LitemobSDK.h>
 
 @interface LMSigmobInitAdapter ()
@@ -26,7 +27,7 @@
 }
 
 - (AWMCustomAdapterVersion *)basedOnCustomAdapterVersion {
-    return AWMCustomAdapterVersion1_0;
+    return [AWMCustomAdapterVersion V2_0];
 }
 
 - (NSString *)adapterVersion {
@@ -40,6 +41,10 @@
 - (void)initializeAdapterWithConfiguration:(AWMSdkInitConfig *)initConfig {
     LMSigmobLog(@"Init initializeAdapterWithConfiguration: appID=%@, extra=%@", initConfig.appID, initConfig.extra);
 
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(initializeAdapterBefore:config:))) {
+        [self.bridge initializeAdapterBefore:self config:initConfig];
+    }
+
     // 从配置中获取 App ID
     NSString *appId = initConfig.appID ?: @"";
     if (appId.length == 0) {
@@ -48,13 +53,12 @@
             appId = initConfig.extra[@"appId"];
         }
     }
-    // appId = @"1104";
 
     if (appId.length == 0) {
         NSError *error = [NSError errorWithDomain:@"LMSigmobInitAdapter"
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey : @"App ID 不能为空"}];
-        if (self.bridge && [self.bridge respondsToSelector:@selector(initializeAdapterFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(initializeAdapterFailed:error:))) {
             [self.bridge initializeAdapterFailed:self error:error];
         }
         return;
@@ -64,26 +68,20 @@
     LMAdSDK *sdk = [LMAdSDK sharedSDK];
     [LMAdSDK enableLog:YES];
 
-    __weak typeof(self) weakSelf = self;
     [sdk startWithAppId:appId
              completion:^(BOOL success, NSError *_Nullable error) {
-                 __strong typeof(weakSelf) strongSelf = weakSelf;
-                 if (!strongSelf) {
-                     return;
-                 }
-
                  if (success) {
                      LMSigmobLog(@"✅ Init: LitemobSDK 初始化成功");
                      // 通知初始化成功
-                     if (strongSelf.bridge && [strongSelf.bridge respondsToSelector:@selector(initializeAdapterSuccess:)]) {
-                         [strongSelf.bridge initializeAdapterSuccess:strongSelf];
+                     if (LMSigmobBridgeCanRespond(self.bridge, @selector(initializeAdapterSuccess:))) {
+                         [self.bridge initializeAdapterSuccess:self];
                      }
                  } else {
                      LMSigmobLog(@"❌ Init: LitemobSDK 初始化失败: %@", error.localizedDescription ?: @"unknown");
                      // 通知初始化失败
-                     if (strongSelf.bridge && [strongSelf.bridge respondsToSelector:@selector(initializeAdapterFailed:error:)]) {
-                         [strongSelf.bridge
-                             initializeAdapterFailed:strongSelf
+                     if (LMSigmobBridgeCanRespond(self.bridge, @selector(initializeAdapterFailed:error:))) {
+                         [self.bridge
+                             initializeAdapterFailed:self
                                                error:error
                                                    ?: [NSError errorWithDomain:@"LMSigmobInitAdapter"
                                                                           code:-1

@@ -7,6 +7,7 @@
 
 #import "LMSigmobInterstitialAdapter.h"
 #import "../LMSigmobAdapterLog.h"
+#import "../LMSigmobBridgeHelper.h"
 #import <LitemobSDK/LMAdSDK.h>
 #import <LitemobSDK/LMAdSlot.h>
 #import <LitemobSDK/LMInterstitialAd.h>
@@ -55,7 +56,7 @@
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey : @"placementId 为空"}];
         // 通知 ToBid SDK 加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAd:didLoadFailWithError:ext:))) {
             [self.bridge interstitialAd:self didLoadFailWithError:error ext:@{}];
         }
         return;
@@ -96,7 +97,7 @@
     });
 }
 
-- (BOOL)showAdFromRootViewController:(UIViewController *)viewController parameter:(AWMParameter *)parameter {
+- (void)showAdFromRootViewController:(UIViewController *)viewController parameter:(AWMParameter *)parameter {
     LMSigmobLog(@"Interstitial showAdFromRootViewController: %@, parameter: %@", viewController, parameter);
 
     if (!self.interstitialAd) {
@@ -105,10 +106,10 @@
                                              code:-2
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告对象不存在"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidShowFailed:error:))) {
             [self.bridge interstitialAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     if (!viewController) {
@@ -117,10 +118,10 @@
                                              code:-3
                                          userInfo:@{NSLocalizedDescriptionKey : @"viewController 为空"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidShowFailed:error:))) {
             [self.bridge interstitialAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     // 检查广告是否已加载且有效
@@ -130,15 +131,15 @@
                                              code:-4
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告尚未加载完成或已过期"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidShowFailed:error:))) {
             [self.bridge interstitialAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     // 展示广告
     [self.interstitialAd showFromViewController:viewController];
-    return YES;
+    return;
 }
 
 - (void)didReceiveBidResult:(AWMMediaBidResult *)result {
@@ -180,17 +181,17 @@
         NSString *ecpm = [ad getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
+            ext = @{WindMillConstant.ECPM : ecpm};
             LMSigmobLog(@"Interstitial 客户端竞价，ECPM: %@分", ecpm);
         }
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAd:didAdServerResponseWithExt:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAd:didAdServerResponseWithExt:))) {
             [self.bridge interstitialAd:self didAdServerResponseWithExt:ext];
         }
 
         // 通知 ToBid SDK 广告加载成功
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidLoad:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidLoad:))) {
             [self.bridge interstitialAdDidLoad:self];
         }
     }
@@ -204,7 +205,7 @@
         self.hasCalledLoadFailed = YES;
 
         // 通知 ToBid SDK 广告加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAd:didLoadFailWithError:ext:))) {
             [self.bridge interstitialAd:self didLoadFailWithError:error ext:@{}];
         }
 
@@ -218,7 +219,7 @@
     LMSigmobLog(@"Interstitial lm_interstitialAdWillVisible: %@", ad);
 
     // 通知 ToBid SDK 广告即将展示
-    if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidVisible:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidVisible:))) {
         [self.bridge interstitialAdDidVisible:self];
     }
 }
@@ -228,7 +229,7 @@
     LMSigmobLog(@"Interstitial lm_interstitialAdDidClick: %@", ad);
 
     // 通知 ToBid SDK 广告被点击
-    if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidClick:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidClick:))) {
         [self.bridge interstitialAdDidClick:self];
     }
 }
@@ -238,7 +239,7 @@
     LMSigmobLog(@"Interstitial lm_interstitialAdDidClose: %@", ad);
 
     // 通知 ToBid SDK 广告已关闭
-    if (self.bridge && [self.bridge respondsToSelector:@selector(interstitialAdDidClose:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(interstitialAdDidClose:))) {
         [self.bridge interstitialAdDidClose:self];
     }
 

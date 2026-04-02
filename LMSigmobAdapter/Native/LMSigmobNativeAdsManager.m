@@ -7,6 +7,7 @@
 
 #import "LMSigmobNativeAdsManager.h"
 #import "../LMSigmobAdapterLog.h"
+#import "../LMSigmobBridgeHelper.h"
 #import "LMSigmobNativeAdData.h"
 #import "LMSigmobNativeAdViewCreator.h"
 #import <LitemobSDK/LMAdSDK.h>
@@ -45,7 +46,7 @@
     if (parameter.isHeaderBidding) {
         count = 1;
     } else {
-        count = [[parameter.extra objectForKey:AWMAdLoadingParamNALoadAdCount] integerValue];
+        count = [[parameter.extra objectForKey:WindMillConstant.LoadAdCount] integerValue];
         if (count <= 0) {
             count = 1;
         }
@@ -124,20 +125,17 @@
         }
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
         if (price && price.length > 0) {
-            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : price}];
+            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{WindMillConstant.ECPM : price}];
         }
 
         // 构建 AWMMediatedNativeAd 数组
         NSMutableArray *adArray = [[NSMutableArray alloc] init];
         for (LMNativeAd *ad in loadedAds) {
-            AWMMediatedNativeAd *mNativeAd = [[AWMMediatedNativeAd alloc] init];
-            mNativeAd.data = [[LMSigmobNativeAdData alloc] initWithDataObject:ad.dataObject];
-            mNativeAd.originMediatedNativeAd = ad.dataObject;
-
-            // 创建 ViewCreator（需要传入 nativeAd 和 adView）
-            // 注意：LitemobSDK 的自渲染广告可能需要创建相关的视图
+            LMSigmobNativeAdData *nativeData = [[LMSigmobNativeAdData alloc] initWithDataObject:ad.dataObject];
             LMSigmobNativeAdViewCreator *viewCreator = [[LMSigmobNativeAdViewCreator alloc] initWithNativeAd:ad];
-            mNativeAd.viewCreator = viewCreator;
+            AWMMediatedNativeAd *mNativeAd = [[AWMMediatedNativeAd alloc] initWithData:nativeData
+                                                                            viewCreator:viewCreator
+                                                                               originAd:ad.dataObject];
 
             [adArray addObject:mNativeAd];
         }
@@ -186,7 +184,13 @@
 
 - (void)lm_nativeAdDetailViewClosed:(LMNativeAd *)nativeAd adView:(UIView *)adView {
     LMSigmobLog(@"NativeAdsManager 自渲染广告详情页关闭，nativeAd: %@, adView: %@", nativeAd, adView);
-    [self.bridge nativeAd:self.adapter didDismissFullScreenModalWithMediatedNativeAd:nativeAd.dataObject];
+    SEL selector = @selector(nativeAd:didDismissFullScreenModalWithMediatedNativeAd:);
+    if (LMSigmobBridgeCanRespond(self.bridge, selector)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [(id)self.bridge performSelector:selector withObject:self.adapter withObject:nativeAd.dataObject];
+#pragma clang diagnostic pop
+    }
 }
 
 - (void)lm_nativeAdDidClose:(LMNativeAd *)nativeAd adView:(nullable UIView *)adView {

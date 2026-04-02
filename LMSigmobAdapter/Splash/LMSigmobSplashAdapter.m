@@ -7,6 +7,7 @@
 
 #import "LMSigmobSplashAdapter.h"
 #import "../LMSigmobAdapterLog.h"
+#import "../LMSigmobBridgeHelper.h"
 #import <LitemobSDK/LMAdSDK.h>
 #import <LitemobSDK/LMAdSlot.h>
 #import <LitemobSDK/LMSplashAd.h>
@@ -58,12 +59,11 @@
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey : @"placementId 为空"}];
         // 通知 ToBid SDK 加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAd:didLoadFailWithError:ext:))) {
             [self.bridge splashAd:self didLoadFailWithError:error ext:@{}];
         }
         return;
     }
-    // placementId = @"94916299001";
     self.placementId = placementId;
     self.hasCalledLoadSuccess = NO;
     self.hasCalledLoadFailed = NO;
@@ -73,20 +73,20 @@
     __block CGSize expectSize = CGSizeZero;
     NSInteger tolerateTimeout = 3; // 默认超时时间
 
-    // NSString *adId = nil;
+    NSString *adId = nil;
     if (parameter && parameter.extra) {
         // 获取自定义底部视图
-        customBottomView = [parameter.extra objectForKey:AWMAdLoadingParamSPCustomBottomView];
+        customBottomView = [parameter.extra objectForKey:WindMillConstant.BottomView];
         self.bottomView = customBottomView;
 
         // 获取期望尺寸
-        NSValue *sizeValue = [parameter.extra objectForKey:AWMAdLoadingParamSPExpectSize];
+        NSValue *sizeValue = [parameter.extra objectForKey:WindMillConstant.AdSize];
         if (sizeValue) {
             expectSize = [sizeValue CGSizeValue];
         }
 
         // 获取超时时间
-        NSNumber *timeoutNumber = [parameter.extra objectForKey:AWMAdLoadingParamSPTolerateTimeout];
+        NSNumber *timeoutNumber = [parameter.extra objectForKey:WindMillConstant.Timeout];
         if (timeoutNumber) {
             tolerateTimeout = [timeoutNumber integerValue];
         }
@@ -143,7 +143,7 @@
         NSError *error = [NSError errorWithDomain:@"LMSigmobSplashAdapter"
                                              code:-2
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告对象不存在"}];
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidShowFailed:error:))) {
             [self.bridge splashAdDidShowFailed:self error:error];
         }
         return;
@@ -154,7 +154,7 @@
         NSError *error = [NSError errorWithDomain:@"LMSigmobSplashAdapter"
                                              code:-3
                                          userInfo:@{NSLocalizedDescriptionKey : @"window 为空"}];
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidShowFailed:error:))) {
             [self.bridge splashAdDidShowFailed:self error:error];
         }
         return;
@@ -166,7 +166,7 @@
         NSError *error = [NSError errorWithDomain:@"LMSigmobSplashAdapter"
                                              code:-4
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告尚未加载完成"}];
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidShowFailed:error:))) {
             [self.bridge splashAdDidShowFailed:self error:error];
         }
         return;
@@ -216,15 +216,15 @@
         NSString *ecpm = [splashAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
+            ext = @{WindMillConstant.ECPM : ecpm};
             LMSigmobLog(@"Splash 客户端竞价，ECPM: %@分", ecpm);
         }
 
         // 通知 ToBid SDK 广告加载成功
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAd:didAdServerResponseWithExt:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAd:didAdServerResponseWithExt:))) {
             [self.bridge splashAd:self didAdServerResponseWithExt:ext];
         }
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdDidLoad:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidLoad:))) {
             [self.bridge splashAdDidLoad:self];
         }
     }
@@ -238,7 +238,7 @@
         self.hasCalledLoadFailed = YES;
 
         // 通知 ToBid SDK 广告加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(splashAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAd:didLoadFailWithError:ext:))) {
             [self.bridge splashAd:self didLoadFailWithError:error ext:@{}];
         }
 
@@ -253,7 +253,7 @@
     LMSigmobLog(@"Splash lm_splashAdWillVisible: %@", splashAd);
 
     // 通知 ToBid SDK 广告即将展示
-    if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdWillVisible:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdWillVisible:))) {
         [self.bridge splashAdWillVisible:self];
     }
 }
@@ -264,11 +264,11 @@
 
     // 通知 ToBid SDK 广告被点击
     if (self.bridge) {
-        if ([self.bridge respondsToSelector:@selector(splashAdDidClick:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidClick:))) {
             [self.bridge splashAdDidClick:self];
         }
         // 通知 ToBid SDK 广告将展示全屏内容
-        if ([self.bridge respondsToSelector:@selector(splashAdWillPresentFullScreenModal:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdWillPresentFullScreenModal:))) {
             [self.bridge splashAdWillPresentFullScreenModal:self];
         }
     }
@@ -279,7 +279,7 @@
     LMSigmobLog(@"Splash lm_splashAdDidClose: %@", splashAd);
 
     // 通知 ToBid SDK 广告已关闭
-    if (self.bridge && [self.bridge respondsToSelector:@selector(splashAdDidClose:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(splashAdDidClose:))) {
         [self.bridge splashAdDidClose:self];
     }
 

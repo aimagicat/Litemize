@@ -7,6 +7,7 @@
 
 #import "LMSigmobBannerAdapter.h"
 #import "../LMSigmobAdapterLog.h"
+#import "../LMSigmobBridgeHelper.h"
 #import <LitemobSDK/LMAdSDK.h>
 #import <LitemobSDK/LMAdSlot.h>
 #import <LitemobSDK/LMBannerAd.h>
@@ -58,7 +59,7 @@
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey : @"placementId 为空"}];
         // 通知 ToBid SDK 加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAd:didLoadFailWithError:ext:))) {
             [self.bridge bannerAd:self didLoadFailWithError:error ext:@{}];
         }
         return;
@@ -149,7 +150,7 @@
         NSString *ecpm = [bannerAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
+            ext = @{WindMillConstant.ECPM : ecpm};
             LMSigmobLog(@"Banner 客户端竞价，ECPM: %@分", ecpm);
         }
 
@@ -160,19 +161,19 @@
             NSError *error = [NSError errorWithDomain:@"LMSigmobBannerAdapter"
                                                  code:-1
                                              userInfo:@{NSLocalizedDescriptionKey : @"Banner 视图为 nil"}];
-            if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoadFailWithError:ext:)]) {
+            if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAd:didLoadFailWithError:ext:))) {
                 [self.bridge bannerAd:self didLoadFailWithError:error ext:@{}];
             }
             return;
         }
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didAdServerResponse:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAd:didAdServerResponse:ext:))) {
             [self.bridge bannerAd:self didAdServerResponse:bannerView ext:ext];
         }
 
         // 通知 ToBid SDK 广告加载成功，直接传入 Banner 视图
-        if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoad:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAd:didLoad:))) {
             [self.bridge bannerAd:self didLoad:bannerView];
         }
     }
@@ -186,7 +187,7 @@
         self.hasCalledLoadFailed = YES;
 
         // 通知 ToBid SDK 广告加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(bannerAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAd:didLoadFailWithError:ext:))) {
             [self.bridge bannerAd:self didLoadFailWithError:error ext:@{}];
         }
 
@@ -201,7 +202,7 @@
 
     // 通知 ToBid SDK 广告已可见
     UIView *bannerView = [bannerAd bannerView];
-    if (self.bridge && bannerView && [self.bridge respondsToSelector:@selector(bannerAdDidBecomeVisible:bannerView:)]) {
+    if (bannerView && LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAdDidBecomeVisible:bannerView:))) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSLog(@"LMSigmobBannerAdapter bannerAdDidBecomeVisible: %@ %@", bannerView, bannerView.superview);
             [self.bridge bannerAdDidBecomeVisible:self bannerView:bannerView];
@@ -216,11 +217,11 @@
     // 通知 ToBid SDK 广告被点击
     UIView *bannerView = [bannerAd bannerView];
     if (self.bridge && bannerView) {
-        if ([self.bridge respondsToSelector:@selector(bannerAdDidClick:bannerView:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAdDidClick:bannerView:))) {
             [self.bridge bannerAdDidClick:self bannerView:bannerView];
         }
         // 通知 ToBid SDK 广告将展示全屏内容
-        if ([self.bridge respondsToSelector:@selector(bannerAdWillPresentFullScreenModal:bannerView:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAdWillPresentFullScreenModal:bannerView:))) {
             [self.bridge bannerAdWillPresentFullScreenModal:self bannerView:bannerView];
         }
     }
@@ -232,7 +233,7 @@
 
     // 通知 ToBid SDK 广告已关闭
     UIView *bannerView = [bannerAd bannerView];
-    if (self.bridge && bannerView && [self.bridge respondsToSelector:@selector(bannerAdDidClosed:bannerView:)]) {
+    if (bannerView && LMSigmobBridgeCanRespond(self.bridge, @selector(bannerAdDidClosed:bannerView:))) {
         [self.bridge bannerAdDidClosed:self bannerView:bannerView];
     }
 

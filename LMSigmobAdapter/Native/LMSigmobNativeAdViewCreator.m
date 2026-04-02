@@ -249,7 +249,6 @@
 @synthesize imageView = _imageView;
 @synthesize imageViewArray = _imageViewArray;
 @synthesize mediaView = _mediaView;
-@synthesize interactiveView = _interactiveView;
 
 - (instancetype)initWithNativeAd:(LMNativeAd *)nativeAd {
     if (self = [super init]) {
@@ -297,6 +296,12 @@
         // 自渲染广告的数据刷新
         // 如果 SDK 有 refresh 方法，可以在这里调用
     }
+}
+
+- (void)unregisterDataObject {
+    // ToBid 5.x 新增要求：销毁前取消注册，避免点击映射残留。
+    // LitemobSDK 当前未提供显式 unregister 接口，这里清空引用即可。
+    self.nativeAd = nil;
 }
 
 - (void)setPlaceholderImage:(UIImage *)placeholderImage {

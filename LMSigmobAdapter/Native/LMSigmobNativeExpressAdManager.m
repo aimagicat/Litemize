@@ -7,6 +7,7 @@
 
 #import "LMSigmobNativeExpressAdManager.h"
 #import "../LMSigmobAdapterLog.h"
+#import "LMSigmobNativeAdData.h"
 #import "LMSigmobNativeAdViewCreator.h"
 #import <LitemobSDK/LMAdSDK.h>
 #import <LitemobSDK/LMAdSlot.h>
@@ -43,7 +44,7 @@
     if (parameter.isHeaderBidding) {
         count = 1;
     } else {
-        count = [[parameter.extra objectForKey:AWMAdLoadingParamNALoadAdCount] integerValue];
+        count = [[parameter.extra objectForKey:WindMillConstant.LoadAdCount] integerValue];
         if (count <= 0) {
             count = 1;
         }
@@ -123,19 +124,17 @@
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
         if (price && price.length > 0) {
-            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{AWMMediaAdLoadingExtECPM : price}];
+            [self.bridge nativeAd:self.adapter didAdServerResponseWithExt:@{WindMillConstant.ECPM : price}];
         }
 
         // 构建 AWMMediatedNativeAd 数组
         NSMutableArray *adArray = [[NSMutableArray alloc] init];
         for (LMNativeExpressAd *ad in loadedAds) {
-            AWMMediatedNativeAd *mNativeAd = [[AWMMediatedNativeAd alloc] init];
-            mNativeAd.originMediatedNativeAd = ad.expressView;
-            mNativeAd.view = ad.expressView;
-
-            // // 模板广告可以创建 ViewCreator（可选）
-            // LMSigmobNativeAdViewCreator *viewCreator = [[LMSigmobNativeAdViewCreator alloc]
-            // initWithExpressAdView:ad.expressView]; mNativeAd.viewCreator = viewCreator;
+            LMSigmobNativeAdData *nativeData = [[LMSigmobNativeAdData alloc] initWithDataObject:nil];
+            LMSigmobNativeAdViewCreator *viewCreator = [[LMSigmobNativeAdViewCreator alloc] initWithExpressAdView:ad.expressView];
+            AWMMediatedNativeAd *mNativeAd = [[AWMMediatedNativeAd alloc] initWithData:nativeData
+                                                                            viewCreator:viewCreator
+                                                                               originAd:ad.expressView];
 
             [adArray addObject:mNativeAd];
         }

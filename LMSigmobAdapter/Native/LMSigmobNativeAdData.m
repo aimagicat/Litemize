@@ -10,7 +10,7 @@
 
 @interface LMSigmobNativeAdData ()
 
-@property(nonatomic, strong) LMNativeAdDataObject *dataObject;
+@property(nonatomic, strong, nullable) LMNativeAdDataObject *dataObject;
 
 @end
 
@@ -20,7 +20,7 @@
 @dynamic title, desc, iconUrl, callToAction, rating, imageUrlList, adMode, adType, interactionType, networkId, videoCoverImage,
     videoUrl, imageModelList;
 
-- (instancetype)initWithDataObject:(LMNativeAdDataObject *)dataObject {
+- (instancetype)initWithDataObject:(nullable LMNativeAdDataObject *)dataObject {
     if (self = [super init]) {
         _dataObject = dataObject;
     }
@@ -96,7 +96,7 @@
 - (WindMillAdn)networkId {
     // 网络 ID（标识广告来源网络）
     // 返回自定义网络标识
-    return WindMillAdnCustom; // 对应 ToBid SDK 中的自定义网络
+    return ""; // 对应 ToBid SDK 中的自定义网络
 }
 
 - (NSString *)videoCoverImage {

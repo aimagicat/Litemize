@@ -7,9 +7,12 @@
 
 #import "LMSigmobRewardedVideoAdapter.h"
 #import "../LMSigmobAdapterLog.h"
+#import "../LMSigmobBridgeHelper.h"
 #import <LitemobSDK/LMAdSDK.h>
 #import <LitemobSDK/LMAdSlot.h>
 #import <LitemobSDK/LMRewardedVideoAd.h>
+
+#import <UIKit/UIKit.h>
 
 @interface LMSigmobRewardedVideoAdapter () <LMRewardedVideoAdDelegate>
 
@@ -58,12 +61,11 @@
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey : @"placementId 为空"}];
         // 通知 ToBid SDK 加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAd:didLoadFailWithError:ext:))) {
             [self.bridge rewardedVideoAd:self didLoadFailWithError:error ext:@{}];
         }
         return;
     }
-
     self.placementId = placementId;
     self.hasCalledLoadSuccess = NO;
     self.hasCalledLoadFailed = NO;
@@ -76,7 +78,7 @@
     }
 
     // 如果 parameter 中有 adRequest，也可以从 adRequest 中获取 userId
-    if (!userId && self.bridge && [self.bridge respondsToSelector:@selector(adRequest)]) {
+    if (!userId && LMSigmobBridgeCanRespond(self.bridge, @selector(adRequest))) {
         WindMillAdRequest *request = [self.bridge adRequest];
         if (request && request.userId) {
             userId = request.userId;
@@ -118,7 +120,7 @@
     });
 }
 
-- (BOOL)showAdFromRootViewController:(UIViewController *)viewController parameter:(AWMParameter *)parameter {
+- (void)showAdFromRootViewController:(UIViewController *)viewController parameter:(AWMParameter *)parameter {
     LMSigmobLog(@"RewardedVideo showAdFromRootViewController: %@, parameter: %@", viewController, parameter);
 
     if (!self.rewardedVideoAd) {
@@ -127,10 +129,10 @@
                                              code:-2
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告对象不存在"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidShowFailed:error:))) {
             [self.bridge rewardedVideoAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     if (!viewController) {
@@ -139,10 +141,10 @@
                                              code:-3
                                          userInfo:@{NSLocalizedDescriptionKey : @"viewController 为空"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidShowFailed:error:))) {
             [self.bridge rewardedVideoAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     // 检查广告是否已加载
@@ -152,15 +154,15 @@
                                              code:-4
                                          userInfo:@{NSLocalizedDescriptionKey : @"广告尚未加载完成"}];
         // 通知 ToBid SDK 展示失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidShowFailed:error:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidShowFailed:error:))) {
             [self.bridge rewardedVideoAdDidShowFailed:self error:error];
         }
-        return NO;
+        return;
     }
 
     // 展示广告
     [self.rewardedVideoAd showFromViewController:viewController];
-    return YES;
+    return;
 }
 
 - (void)didReceiveBidResult:(AWMMediaBidResult *)result {
@@ -203,19 +205,14 @@
         NSString *ecpm = [rewardedAd getEcpm];
         NSDictionary *ext = @{};
         if (ecpm && ecpm.length > 0) {
-            ext = @{AWMMediaAdLoadingExtECPM : ecpm};
-            LMSigmobLog(@"RewardedVideo 客户端竞价，ECPM: %@分", ecpm);
+            ext = @{WindMillConstant.ECPM : ecpm, WindMillConstant.Currency : @"CNY"};
+            LMSigmobLog(@"RewardedVideo 客户端竞价，ECPM: %@分，货币: %@", ecpm, @"CNY");
         }
 
         // 通知 ToBid SDK 广告数据返回（用于客户端竞价）
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAd:didAdServerResponseWithExt:)]) {
-            [self.bridge rewardedVideoAd:self didAdServerResponseWithExt:ext];
-        }
-
+        [self.bridge rewardedVideoAd:self didAdServerResponseWithExt:ext];
         // 通知 ToBid SDK 广告加载成功
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidLoad:)]) {
-            [self.bridge rewardedVideoAdDidLoad:self];
-        }
+        [self.bridge rewardedVideoAdDidLoad:self];
     }
 }
 
@@ -227,7 +224,7 @@
         self.hasCalledLoadFailed = YES;
 
         // 通知 ToBid SDK 广告加载失败
-        if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAd:didLoadFailWithError:ext:)]) {
+        if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAd:didLoadFailWithError:ext:))) {
             [self.bridge rewardedVideoAd:self didLoadFailWithError:error ext:@{}];
         }
 
@@ -241,7 +238,7 @@
     LMSigmobLog(@"RewardedVideo lm_rewardedVideoAdWillVisible: %@", rewardedAd);
 
     // 通知 ToBid SDK 广告即将展示
-    if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidVisible:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidVisible:))) {
         [self.bridge rewardedVideoAdDidVisible:self];
     }
 }
@@ -251,7 +248,7 @@
     LMSigmobLog(@"RewardedVideo lm_rewardedVideoAdDidClick: %@", rewardedAd);
 
     // 通知 ToBid SDK 广告被点击
-    if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidClick:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidClick:))) {
         [self.bridge rewardedVideoAdDidClick:self];
     }
 }
@@ -261,7 +258,7 @@
     LMSigmobLog(@"RewardedVideo lm_rewardedVideoAdDidClose: %@", rewardedAd);
 
     // 通知 ToBid SDK 广告已关闭
-    if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAdDidClose:)]) {
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAdDidClose:))) {
         [self.bridge rewardedVideoAdDidClose:self];
     }
 
@@ -279,14 +276,11 @@
     // 通知 ToBid SDK 激励成功
     // 注意：WindMillRewardInfo 需要从 rewardedAd 中获取相关信息
     // 如果 LitemobSDK 没有提供奖励信息，可以创建一个默认的 WindMillRewardInfo
-    if (self.bridge && [self.bridge respondsToSelector:@selector(rewardedVideoAd:didRewardSuccessWithInfo:)]) {
-        // 创建奖励信息（根据实际需求调整）
-        WindMillRewardInfo *rewardInfo = [[WindMillRewardInfo alloc] init];
-        rewardInfo.userId = [LMAdSDK userId];
-        rewardInfo.isCompeltedView = rewardedAd.isServerReward;
-        // 如果 rewardedAd 有奖励相关信息，可以在这里设置
-        // rewardInfo.rewardName = @"";
-        // rewardInfo.rewardAmount = @(0);
+    if (LMSigmobBridgeCanRespond(self.bridge, @selector(rewardedVideoAd:didRewardSuccessWithInfo:))) {
+        WindMillRewardInfo *rewardInfo = nil;
+        if ([rewardedAd respondsToSelector:NSSelectorFromString(@"rewardInfo")]) {
+            rewardInfo = [rewardedAd valueForKey:@"rewardInfo"];
+        }
         [self.bridge rewardedVideoAd:self didRewardSuccessWithInfo:rewardInfo];
     }
 }
