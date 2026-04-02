@@ -14,30 +14,30 @@
 
 // MARK: - 基础配置类
 // 广告位配置、错误定义、日志系统等基础功能
-#import <LitemobSDK/LMError.h>
-#import <LitemobSDK/LMLogger.h>
+#import "LMError.h"
+#import "LMLogger.h"
 
 // MARK: - 数据对象
 // 原生广告相关的数据对象（包含 LMNativeAdMaterialObject 和 LMNativeAdDataObject）
-#import <LitemobSDK/LMNativeAdDataObject.h>
+#import "LMNativeAdDataObject.h"
 
 // MARK: - SDK 入口
 // SDK 初始化和全局配置
-#import <LitemobSDK/LMAdSDK.h>
+#import "LMAdSDK.h"
 // SDK 配置构建器，支持链式调用设置属性
-#import <LitemobSDK/LMAdSDKConfigBuilder.h>
+#import "LMAdSDKConfigBuilder.h"
 
 // MARK: - 广告类型
 // 按字母顺序排列的具体广告类型实现
-#import <LitemobSDK/LMBannerAd.h>
-#import <LitemobSDK/LMInterstitialAd.h>
-#import <LitemobSDK/LMNativeAd.h>
-#import <LitemobSDK/LMNativeExpressAd.h>
-#import <LitemobSDK/LMRewardedVideoAd.h>
-#import <LitemobSDK/LMSplashAd.h>
+#import "LMBannerAd.h"
+#import "LMInterstitialAd.h"
+#import "LMNativeAd.h"
+#import "LMNativeExpressAd.h"
+#import "LMRewardedVideoAd.h"
+#import "LMSplashAd.h"
 
 // MARK: - Debug工具（可选功能）
 #if LITE_MOB_CXH_SDK_ENABLE_DEBUG_PANEL
-#import <LitemobSDK/LMDebugLogPanelManager.h>
-#import <LitemobSDK/LMDebugLogPanelView.h>
+#import "LMDebugLogPanelManager.h"
+#import "LMDebugLogPanelView.h"
 #endif

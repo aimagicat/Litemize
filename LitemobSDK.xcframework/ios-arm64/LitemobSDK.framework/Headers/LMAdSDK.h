@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <LitemobSDK/LMAdSDKConfigBuilder.h>
-#import <LitemobSDK/LMLogger.h>
+#import "LMAdSDKConfigBuilder.h"
+#import "LMLogger.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -3,8 +3,10 @@
 //  LitemobSDK
 //
 
-#import <LitemobSDK/LitemobSDK.h>
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+@class LMAdSlot;
 
 NS_ASSUME_NONNULL_BEGIN
 

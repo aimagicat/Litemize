@@ -5,10 +5,10 @@
 //  信息流自渲染广告
 //
 
-#import <LitemobSDK/LMAdSlot.h>
+#import "LMAdSlot.h"
 #import <Foundation/Foundation.h>
-#import <LitemobSDK/LMNativeAdDataObject.h>
-#import <LitemobSDK/LMNativeAdViewMapping.h>
+#import "LMNativeAdDataObject.h"
+#import "LMNativeAdViewMapping.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN

@@ -5,7 +5,7 @@
 //  信息流模版渲染广告
 //
 
-#import <LitemobSDK/LMAdSlot.h>
+#import "LMAdSlot.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 

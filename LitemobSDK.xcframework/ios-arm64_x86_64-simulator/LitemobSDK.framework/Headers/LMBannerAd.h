@@ -5,7 +5,7 @@
 //  Banner 横幅广告（门面类，通过 Adapter 模式加载广告）
 //
 
-#import <LitemobSDK/LMAdSlot.h>
+#import "LMAdSlot.h"
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
